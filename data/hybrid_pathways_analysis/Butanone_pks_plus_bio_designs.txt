@@ -1,0 +1,54 @@
+PKS Design Number: 0
+PKS Design: [["AT{'substrate': 'Malonyl-CoA'}", 'loading: True'], ["AT{'substrate': 'Malonyl-CoA'}", 'loading: False']]
+PKS Product: CC(=O)CC(=O)O
+PKS Product Similarity: 0.71
+Non-PKS Product: O=C1CC(=O)C1
+Non-PKS Product Similarity: 0.83
+
+PKS Design Number: 1
+PKS Design: [["AT{'substrate': 'Malonyl-CoA'}", 'loading: True'], ["AT{'substrate': 'Hmal'}", "KR{'type': 'C1'}", 'loading: False']]
+PKS Product: CC(=O)[C@@H](O)C(=O)O
+PKS Product Similarity: 0.62
+Non-PKS Product: CC(=O)C(=O)C=O
+Non-PKS Product Similarity: 0.71
+
+PKS Design Number: 2
+PKS Design: [["AT{'substrate': 'Malonyl-CoA'}", 'loading: True'], ["AT{'substrate': 'Hmal'}", 'loading: False']]
+PKS Product: CC(=O)C(O)C(=O)O
+PKS Product Similarity: 0.62
+Non-PKS Product: CC(=O)C(=O)C=O
+Non-PKS Product Similarity: 0.71
+
+PKS Design Number: 3
+PKS Design: [["AT{'substrate': 'Malonyl-CoA'}", 'loading: True'], ["AT{'substrate': 'Methylmalonyl-CoA'}", 'loading: False']]
+PKS Product: CC(=O)[C@H](C)C(=O)O
+PKS Product Similarity: 0.62
+Non-PKS Product: CCC(C)=O
+Non-PKS Product Similarity: 1.00
+
+Non-PKS pathways:
+     Reactions: ['(1) CC(=O)C(C)C(=O)O => (1) CCC(C)=O + (1) O=C=O']
+     Reaction rules: ['rule0024_44;rule0053_19']
+     Feasibilities: ['0.9689747']
+     Net feasibility: 0.9689747
+
+     Reactions: ['(1) CC(=O)C(C)C(=O)O + (1) O => (1) CCC(C)=O + (1) O=C(O)O']
+     Reaction rules: ['rule0085_2']
+     Feasibilities: ['0.2522532']
+     Net feasibility: 0.2522532
+
+     Reactions: ['(2) CC(=O)C(C)C(=O)O => (1) CC(=O)C(CC(=O)O)C(=O)O + (1) CCC(C)=O']
+     Reaction rules: ['rule0126_1']
+     Feasibilities: ['0.18385053']
+     Net feasibility: 0.18385053
+
+     Reactions: ['(2) CC(=O)C(C)C(=O)O => (1) CC(=O)C(C)(C(=O)O)C(=O)O + (1) CCC(C)=O']
+     Reaction rules: ['rule0126_2']
+     Feasibilities: ['0.077016']
+     Net feasibility: 0.077016
+
+     Reactions: ['(2) CC(=O)C(C)C(=O)O => (1) CCC(C)=O + (1) CC(C(=O)O)C(=O)CC(=O)O']
+     Reaction rules: ['rule0126_2']
+     Feasibilities: ['0.058867946']
+     Net feasibility: 0.058867946
+

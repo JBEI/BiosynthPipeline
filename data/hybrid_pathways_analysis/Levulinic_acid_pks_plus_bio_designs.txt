@@ -1,0 +1,13 @@
+PKS Design Number: 0
+PKS Design: [["AT{'substrate': 'Malonyl-CoA'}", 'loading: True'], ["AT{'substrate': 'Malonyl-CoA'}", 'loading: False'], ["AT{'substrate': 'Hmal'}", "KR{'type': 'B1'}", 'DH{}', 'ER{}', 'loading: False']]
+PKS Product: CC(=O)CC[C@H](O)C(=O)O
+PKS Product Similarity: 0.64
+Non-PKS Product: CC(=O)CCC(=O)O
+Non-PKS Product Similarity: 1.00
+
+Non-PKS pathways:
+     Reactions: ['(1) CC(=O)CCC(O)C(=O)O + (1) O=O => (1) CC(=O)CCC(=O)O + (1) O + (1) O=C=O']
+     Reaction rules: ['rule0352_2']
+     Feasibilities: ['0.9302297']
+     Net feasibility: 0.9302297
+

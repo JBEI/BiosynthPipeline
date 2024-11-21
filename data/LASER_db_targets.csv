@@ -1,0 +1,74 @@
+,DOI,target name,target SMILES
+0,10.1016/j.ymben.2005.03.001,succinate,O=C(O)CCC(=O)O
+1,10.1007/s11274-014-1679-z,shikimate,O=C(O)C1=CC(O)C(O)C(O)C1
+3,10.1016/j.ymben.2015.03.018,4-hydroxycoumarin,O=c1cc(O)c2ccccc2o1
+6,10.1128/AEM.01386-15,CIS-CIS-MUCONATE,
+7,10.1016/j.ymben.2015.03.009,1_4-butanediol,OCCCCO
+8,10.1016/j.ymben.2015.04.005,isobutanol,CC(C)CO
+9,10.1016/j.ymben.2015.03.001,NADPH,NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1
+10,10.1016/j.ymben.2015.07.003,xylitol,OCC(O)C(O)C(O)CO
+11,10.1002/bit.25683,a-farnesene,C=CC(C)=CCC=C(C)CCC=C(C)C
+12,10.1093/nar/gkv464,lycopene,CC(C)=CCCC(C)=CC=CC(C)=CC=CC(C)=CC=CC=C(C)C=CC=C(C)C=CC=C(C)CCC=C(C)C
+13,10.1016/j.ymben.2015.08.007,RESVERATROL,Oc1ccc(C=Cc2cc(O)cc(O)c2)cc1
+14,10.1073/pnas.1502866112,penicillin G,CC1(C)SC2C(NC(=O)Cc3ccccc3)C(=O)N2C1C(=O)O
+15,10.1186/s12934-015-0192-x,violacein,O=C1N=c2ccccc2=C1c1cc(-c2c[nH]c3ccc(O)cc23)[nH]c1O
+16,10.1016/j.ymben.2015.01.002,d-lactate,CC(O)C(=O)O
+18,"Applied Biochemistry and Biotechnology, Vol. 34/35, 1992, Page 149",1_3-propanediol,OCCCO
+19,10.1128/AEM.02187-15,D-cycloserine,NC1CONC1=O
+21,10.1128/AEM.03797-13,quercetin 3-O-xyloside,O=c1c(OC2OCC(O)C(O)C2O)c(-c2ccc(O)c(O)c2)oc2cc(O)cc(O)c12
+24,10.1007/s00253-015-6816-6,Fumaric acid,O=C(O)C=CC(=O)O
+27,10.1128/AEM.01419-12,ethanol,CCO
+28,10.1002/bit.25577,all-trans-retinol,CC(C=CC1=C(C)CCCC1(C)C)=CC=CC(C)=CCO
+32,10.1002/bit.25324,butanol,CCCCO
+33,10.1128/AEM.02046-08,1-propanol,CCCO
+35,10.1002/bit.22429,3-HP,NC(=S)NN=Cc1ncccc1O
+36,10.1007/s10295-015-1642-5,indigoidine,N=C1C=C(c2cc(N)c(=O)[nH]c2O)C(=O)NC1=O
+41,10.1007/s12033-013-9721-1,2-methylbut-3-en-2-ol,C=CC(C)(C)O
+42,10.1016/j.ymben.2015.06.009,alkenes,C=CCCC.CC=CCC
+43,10.1007/s12010-015-1874-x,l-alanine,CC(N)C(=O)O
+47,10.1016/j.ymben.2014.11.003,chondroitin,CC(=O)NC1C(O)OC(CO)C(O)C1OC1OC(C(=O)O)=CC(O)C1O
+50,10.1016/j.ymben.2015.01.004,N-acetylglucosamine,CC(=O)NC(C=O)C(O)C(O)C(O)CO
+55,10.1016/j.ymben.2015.07.006,"(R,R)-2,3-butanediol",CC(O)C(C)O
+56,10.1016/j.ymben.2014.06.004,3-hydroxy-gamma-butyrolactone,O=C1CC(O)CO1
+58,10.1016/j.ymben.2015.05.005,B-ALANINE,NCCC(=O)O
+59,10.1016/j.enzmictec.2015.01.001,caffeic acid,O=C(O)C=Cc1ccc(O)c(O)c1
+65,10.1016/j.ymben.2014.12.001,miltiradiene,CC(C)C1=CCC2=C(CCC3C(C)(C)CCCC23C)C1
+66,10.1002/jctb.4293,(R)-acetoin,CC(=O)C(C)O
+68,10.1186/s12934-015-0211-y,l-arginine,NC(N)=NCCCC(N)C(=O)O
+70,10.1099/mic.0.078329-0,hexanoate,CCCCCC(=O)O
+71,10.1186/s12934-015-0291-8,Deoxycytidine,Nc1ccn(C2CC(O)C(CO)O2)c(=O)n1
+76,10.1002/bit.25844,L-Serine,NC(CO)C(=O)O
+77,10.1021/sb5000077,ethylene,C=C
+80,10.1128/AEM.02966-14,Pinosylvin,Oc1cc(O)cc(C=Cc2ccccc2)c1
+81,10.1007/s00253-015-6732-9,acetol,CC(=O)CO
+86,10.1007/s00449-013-1003-6,D-galactonate,O=C(O)C(O)C(O)C(O)C(O)CO
+87,10.1021/acssynbio.5b00012,Naringenin,O=C1CC(c2ccc(O)cc2)Oc2cc(O)cc(O)c21
+89,10.1038/nature04640,amorphadiene,C=C(C)C1CCC(C)C2CCC(C)=CC12
+91,10.1128/AEM.02242-15,L-Methionine,CSCCC(N)C(=O)O
+93,10.1080/09168451.2014.878222,4-aminobenzoate,Nc1ccc(C(=O)O)cc1
+94,10.1186/s12934-014-0185-1,trans-cinnamate,O=C(O)C=Cc1ccccc1
+95,Patrik R Jones,propane,CCC
+97,10.1016/j.ymben.2014.10.008,Sclareol,C=CC(C)(O)CCC1C(C)(O)CCC2C(C)(C)CCCC21C
+98,10.1016/j.ymben.2015.09.012,L-dihomomethionine,CSCCCCC(N)C(=O)O
+100,10.1002/biot.201400023,(4S)-limonene,C=C(C)C1CC=C(C)CC1
+101,"Biotechnology Letters 21: 791795, 1999",beta-carotene,CC(C=CC=C(C)C=CC1=C(C)CCCC1(C)C)=CC=CC=C(C)C=CC=C(C)C=CC1=C(C)CCCC1(C)C
+103,10.1016/j.ymben.2015.03.013,PHB,O=C(O)c1ccc(O)cc1
+105,10.1186/s12934-015-0252-2,l-tyrosine,NC(Cc1ccc(O)cc1)C(=O)O
+107,10.1016/j.ymben.2014.11.012,acetate,CC(=O)O
+111,10.1016/j.ymben.2014.12.005,myo-inositol,OC1C(O)C(O)C(O)C(O)C1O
+113,10.1002/cbic.201402275,rosmarinate,O=C(C=Cc1ccc(O)c(O)c1)OC(Cc1ccc(O)c(O)c1)C(=O)O
+115,10.1038/ncomms2404,L-lysine,NCCCCC(N)C(=O)O
+116,10.1128/AEM.02920-14,bisabolene,CC(C)=CCCC(C)=C1CC=C(C)CC1
+119,10.1007/s00253-014-6338-7,H2,[HH]
+121,10.1016/S1096-7176(03)00046-6,"L-erythro-5,6,7,8-tetrahydrobiopterin",CC(O)C(O)C1CNc2nc(N)[nH]c(=O)c2N1
+122,10.1128/AEM.00861-07,isopentanol,CC(C)CCO
+126,10.1016/j.ymben.2014.12.002,(+)-catechin,Oc1cc(O)c2c(c1)OC(c1ccc(O)c(O)c1)C(O)C2
+127,10.1016/j.procbio.2013.10.002,1_2_4-butanetriol,OCCC(O)CO
+129,10.1016/j.ymben.2015.01.008,mevalonate,CC(O)(CCO)CC(=O)O
+130,10.1021/acssynbio.5b00103,GLYCOLLATE,O=C(O)CO
+131,10.1002/biot.201400221,cyanocob(III)alamin,C#N.CC1=C2N=C(C=C3N=C(C(C)=C4NC(C)(C5N=C1C(C)(CCC(=O)NCC(C)OP(=O)(O)OC1C(CO)OC(n6cnc7cc(C)c(C)cc76)C1O)C5CC(N)=O)C(C)(CC(N)=O)C4CCC(N)=O)C(C)(CC(N)=O)C3CCC(N)=O)C(C)(C)C2CCC(N)=O.[Co+3]
+135,10.1007/s00253-014-6092-x,itaconate,C=C(CC(=O)O)C(=O)O
+136,10.1021/sb500303q,5-Hydroxytryptophan,NC(Cc1c[nH]c2ccc(O)cc12)C(=O)O
+137,10.1038/nchembio.1613,morphine,CN1CCC23c4c5ccc(O)c4OC2C(O)C=CC3C1C5
+141,10.1038/nchembio.1816,(S)-reticuline,COc1ccc(CC2c3cc(O)c(OC)cc3CCN2C)cc1O
+142,10.1002/biot.201300263,phenol,Oc1ccccc1

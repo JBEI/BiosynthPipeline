@@ -1,0 +1,49 @@
+PKS Design Number: 0
+PKS Design: [["AT{'substrate': 'Hydroxymalonyl-CoA'}", 'loading: True'], ["AT{'substrate': 'Malonyl-CoA'}", "KR{'type': 'B'}", 'DH{}', 'ER{}', 'loading: False']]
+PKS Product: O=C(O)CCCO
+PKS Product Similarity: 0.75
+Non-PKS Product: CCCC(=O)O
+Non-PKS Product Similarity: 0.86
+
+PKS Design Number: 1
+PKS Design: [["AT{'substrate': 'Methylmalonyl-CoA'}", 'loading: True'], ["AT{'substrate': 'Hmal'}", "KR{'type': 'B1'}", 'DH{}', 'ER{}', 'loading: False']]
+PKS Product: CCC[C@H](O)C(=O)O
+PKS Product Similarity: 0.67
+Non-PKS Product: CCCC(=O)O
+Non-PKS Product Similarity: 0.86
+
+PKS Design Number: 2
+PKS Design: [["AT{'substrate': 'Methoxymalonyl-CoA'}", 'loading: True'], ["AT{'substrate': 'Malonyl-CoA'}", "KR{'type': 'B'}", 'DH{}', 'ER{}', 'loading: False']]
+PKS Product: COCCCC(=O)O
+PKS Product Similarity: 0.67
+Non-PKS Product: O=CCCC(=O)O
+Non-PKS Product Similarity: 0.75
+
+PKS Design Number: 3
+PKS Design: [["AT{'substrate': 'Hydroxymalonyl-CoA'}", 'loading: True'], ["AT{'substrate': 'Malonyl-CoA'}", "KR{'type': 'B'}", 'loading: False']]
+PKS Product: O=C(O)C[C@H](O)CO
+PKS Product Similarity: 0.67
+Non-PKS Product: O=CCCC(=O)O
+Non-PKS Product Similarity: 0.75
+
+PKS Design Number: 4
+PKS Design: [["AT{'substrate': 'Hydroxymalonyl-CoA'}", 'loading: True'], ["AT{'substrate': 'Hmal'}", "KR{'type': 'B1'}", 'DH{}', 'ER{}', 'loading: False']]
+PKS Product: O=C(O)[C@@H](O)CCO
+PKS Product Similarity: 0.67
+Non-PKS Product: O=C(O)CCCO
+Non-PKS Product Similarity: 0.75
+
+PKS Design Number: 5
+PKS Design: [["AT{'substrate': 'Hydroxymalonyl-CoA'}", 'loading: True'], ["AT{'substrate': 'Malonyl-CoA'}", 'loading: False']]
+PKS Product: O=C(O)CC(=O)CO
+PKS Product Similarity: 0.67
+Non-PKS Product: CC(=O)CC(=O)O
+Non-PKS Product Similarity: 0.75
+
+PKS Design Number: 6
+PKS Design: [["AT{'substrate': 'Hydroxymalonyl-CoA'}", 'loading: True'], ["AT{'substrate': 'Methylmalonyl-CoA'}", "KR{'type': 'B1'}", 'DH{}', 'ER{}', 'loading: False']]
+PKS Product: C[C@@H](CCO)C(=O)O
+PKS Product Similarity: 0.67
+Non-PKS Product: O=C(O)CCCO
+Non-PKS Product Similarity: 0.75
+

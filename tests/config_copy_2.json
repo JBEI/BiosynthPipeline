@@ -1,0 +1,22 @@
+{
+  "pks_starters_filepath": "../biosynth_pipeline/retrotide/data/starters.smi",
+  "pks_extenders_filepath": "../biosynth_pipeline/retrotide/data/extenders.smi",
+  "pks_starters": ["mal","mmal","hmal"],
+  "pks_extenders": ["mal","mmal","hmal"],
+  "pks_similarity_metric": "mcs_without_stereo",
+  "non_pks_similarity_metric": "mcs_without_stereo",
+  "known_metabolites_filepath": "../data/all_known_metabolites.txt",
+  "non_pks_cofactors_filepath": "../data/coreactants_and_rules/all_cofactors.tsv",
+  "input_cpd_dir": "../data/coreactants_and_rules/",
+  "feasibility_cofactors": "../data/coreactants_and_rules/all_cofactors_updated.csv",
+  "consider_target_stereo": false,
+  "non_pks_rules": "intermediate_non_dimerization",
+  "non_pks_steps": "1",
+  "non_pks_cores": "2",
+  "non_pks_sim_score_filter": true,
+  "non_pks_sim_score_cutoffs": ["0.1", "0.1"],
+  "non_pks_sim_sample": true,
+  "non_pks_sim_sample_size": "100",
+  "stopping_criteria": "first_product_formation",
+  "results_dir": "."
+}
