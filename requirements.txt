@@ -7,7 +7,7 @@ equilibrator_assets<0.6.0
 equilibrator_cache<0.6.0
 ipython
 keras==2.9.0
-matplotlib==3.5.3
+matplotlib==3.9.2
 mhfp==1.9.2
 mock
 mordred==1.2.0
