@@ -1,5 +1,7 @@
 # Biosynth Pipeline
 
+https://www.biorxiv.org/content/10.1101/2024.11.04.621673v1.abstract
+
 **Biosynth Pipeline** is a combined retrobiosynthesis pipeline intended to expand the design space of feasible
 biosynthetic pathways between simple, inexpensively available precursors and high-value small molecules. 
 Biosynth Pipeline has been developed by integrating two software packages: **Retrotide**, which specializes in modular
