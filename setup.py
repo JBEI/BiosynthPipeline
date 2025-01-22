@@ -6,7 +6,7 @@ def parse_requirements(filename):
         return file.read().splitlines()
 
 setup(
-    name="retrobiosynthesisPipeline",
+    name="BiosynthPipeline",
 
     version="1.0",
 
