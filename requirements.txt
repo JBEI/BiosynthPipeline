@@ -27,4 +27,4 @@ umap_learn==0.5.2
 xgboost==1.6.2
 streamlit
 altair==4
-DORA-XGB==1.8
+DORA-XGB==1.9
