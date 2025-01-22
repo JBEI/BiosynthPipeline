@@ -1,6 +1,6 @@
 cobra>=0.29.0
 cvxpy==1.5.2
-doranet
+doranet==0.5.6a1
 equilibrator_api<0.6.0
 equilibrator_assets<0.6.0
 equilibrator_cache<0.6.0
