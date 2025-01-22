@@ -15,7 +15,7 @@ numpy==1.26.4
 pandas==2.2.2
 pytest==7.1.2
 rdkit==2023.9.5
-scikit-learn==1.5.1
+scikit-learn
 scipy==1.14.0
 selfies==2.1.1
 setuptools
