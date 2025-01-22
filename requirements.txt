@@ -5,7 +5,6 @@ equilibrator_api<0.6.0
 equilibrator_assets<0.6.0
 equilibrator_cache<0.6.0
 ipython
-keras==2.9.0
 matplotlib
 mhfp==1.9.2
 mock
@@ -20,7 +19,6 @@ scipy==1.14.0
 selfies==2.1.1
 setuptools
 streamlit
-tensorflow==2.9.2
 umap==0.1.1
 umap_learn==0.5.2
 xgboost==1.6.2
