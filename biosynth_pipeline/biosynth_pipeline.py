@@ -680,6 +680,7 @@ class biosynth_pipeline:
         self.non_pks_similarity_metric = self.config_dict['non_pks_similarity_metric']
 
         # remove stereochemistry if user does not want to consider stereo
+        # stereochemistry is not currently supported anyway but is on the docket for future versions
         self.consider_target_stereo = bool(self.config_dict['consider_target_stereo'])
         if not self.consider_target_stereo:
             self.target_smiles = self._remove_stereo(target_smiles)
@@ -690,7 +691,7 @@ class biosynth_pipeline:
         self.non_pks_cofactors = dir_path + self.non_pks_cofactors_filepath
         self.input_cpd_dir = dir_path + self.config_dict['input_cpd_dir']
 
-        # load in reaction rules for pickaxe - choose from generalized, intermediate or 'intermediate_non_dimerization
+        # load in reaction rules for DORAnet - choose from generalized, intermediate or 'intermediate_non_dimerization
         self.non_pks_rules = self.config_dict['non_pks_rules']
         if self.non_pks_rules == 'biological_intermediate':
             self.rule_filepath =  dir_path + '../data/coreactants_and_rules/JN3604IMT_rules.tsv'
