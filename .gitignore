@@ -46,3 +46,6 @@ site
 secrets.cfg
 bower_components
 node_modules
+
+# ignore all DORAnet network type files
+./data/DORAnet_network_files
