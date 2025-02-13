@@ -1,4 +1,0 @@
-PKS Design Number: 0
-PKS Design: [["AT{'substrate': 'Hydroxymalonyl-CoA'}", 'loading: True'], ["AT{'substrate': 'Malonyl-CoA'}", "KR{'type': 'B'}", 'DH{}', 'ER{}', 'loading: False']]
-PKS Product: O=C1CCCO1
-PKS Product Similarity: 1.00

@@ -1,0 +1,41 @@
+Metadata-Version: 2.1
+Name: BiosynthPipeline
+Version: 1.0
+Summary: A combined retrobiosynthesis pipeline that seamlessly integrates Retrotide and Pickaxe.Retrotide is a synthesis planning software for designing chimeric type I polyketide synthases (PKSs)Meanwhile, Pickaxe is a synthesis planning software catered specifically for enzymatic synthesis
+Home-page: https://github.com/JBEI/DemoRemo
+Author: Yash Chainani and Tyler Backman
+Author-email: ychainani@lbl.gov
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research/Development
+Classifier: Intended Audience :: Scientific Engineering
+Classifier: Intended Audience :: Application
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.8
+Requires-Dist: cobra>=0.29.0
+Requires-Dist: cvxpy==1.5.2
+Requires-Dist: doranet==0.5.6a1
+Requires-Dist: equilibrator_api<0.6.0
+Requires-Dist: equilibrator_assets<0.6.0
+Requires-Dist: equilibrator_cache<0.6.0
+Requires-Dist: ipython
+Requires-Dist: matplotlib
+Requires-Dist: mhfp==1.9.2
+Requires-Dist: mock
+Requires-Dist: mordred==1.2.0
+Requires-Dist: networkx>=2.2
+Requires-Dist: numpy==1.26.4
+Requires-Dist: pandas==2.2.2
+Requires-Dist: pytest==7.1.2
+Requires-Dist: rdkit
+Requires-Dist: scikit-learn
+Requires-Dist: scipy==1.14.0
+Requires-Dist: selfies==2.1.1
+Requires-Dist: setuptools
+Requires-Dist: streamlit
+Requires-Dist: umap==0.1.1
+Requires-Dist: umap_learn==0.5.2
+Requires-Dist: xgboost==1.6.2
+Requires-Dist: streamlit
+Requires-Dist: altair==4
+Requires-Dist: DORA-XGB==1.10

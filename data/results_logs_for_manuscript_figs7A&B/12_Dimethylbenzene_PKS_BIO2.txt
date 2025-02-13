@@ -1,0 +1,52 @@
+
+PKS design number: 0
+PKS design:
+    ["AT{'substrate': 'benz'}", 'loading: True']
+    ["AT{'substrate': 'Malonyl-CoA'}", "KR{'type': 'B'}", 'DH{}', 'ER{}', 'loading: False']
+PKS product: O=C(O)CCc1ccccc1
+PKS product similarity: 0.5833333333333334
+Bio product: Cc1ccccc1C
+Bio product similarity: 1.0
+Bio pathways:
+  Pathway #5:
+    O=C(O)CCc1ccccc1 = Cc1ccccc1CC(=O)O
+    Cc1ccccc1CC(=O)O = Cc1ccccc1C + O=C=O
+    reaction feasibilities: ['0.250', '0.997']
+    net feasibility: 0.250
+    reaction rules: ['rule0028_46', 'rule0024_27;rule0053_19']
+  Pathway #3:
+    O=C(O)CCc1ccccc1 = Cc1ccccc1CC(=O)O
+    Cc1ccccc1CC(=O)O + Cc1ccccc1CC(=O)O = Cc1ccccc1C + O=C(O)Cc1ccccc1CC(=O)O
+    reaction feasibilities: ['0.250', '0.032']
+    net feasibility: 0.008
+    reaction rules: ['rule0028_46', 'rule0126_2']
+  Pathway #1:
+    O=C(O)CCc1ccccc1 = Cc1ccccc1CC(=O)O
+    Cc1ccccc1CC(=O)O + Cc1ccccc1CC(=O)O = Cc1ccccc1C + Cc1ccccc1C(C(=O)O)C(=O)O
+    reaction feasibilities: ['0.250', '0.032']
+    net feasibility: 0.008
+    reaction rules: ['rule0028_46', 'rule0126_2']
+  Pathway #7:
+    O=C(O)CCc1ccccc1 = Cc1ccccc1CC(=O)O
+    Cc1ccccc1CC(=O)O + Cc1ccccc1CC(=O)O = Cc1cccc(C(=O)O)c1CC(=O)O + Cc1ccccc1C
+    reaction feasibilities: ['0.250', '0.026']
+    net feasibility: 0.006
+    reaction rules: ['rule0028_46', 'rule0126_2']
+  Pathway #4:
+    O=C(O)CCc1ccccc1 = Cc1ccccc1CC(=O)O
+    Cc1ccccc1CC(=O)O + Cc1ccccc1CC(=O)O = Cc1ccccc1C + Cc1cc(C(=O)O)ccc1CC(=O)O
+    reaction feasibilities: ['0.250', '0.019']
+    net feasibility: 0.005
+    reaction rules: ['rule0028_46', 'rule0126_2']
+  Pathway #6:
+    O=C(O)CCc1ccccc1 = Cc1ccccc1CC(=O)O
+    Cc1ccccc1CC(=O)O + Cc1ccccc1CC(=O)O = Cc1ccccc1C + Cc1c(CC(=O)O)cccc1C(=O)O
+    reaction feasibilities: ['0.250', '0.009']
+    net feasibility: 0.002
+    reaction rules: ['rule0028_46', 'rule0126_2']
+  Pathway #2:
+    O=C(O)CCc1ccccc1 = Cc1ccccc1CC(=O)O
+    Cc1ccccc1CC(=O)O + Cc1ccccc1CC(=O)O = Cc1ccccc1C + Cc1ccc(C(=O)O)cc1CC(=O)O
+    reaction feasibilities: ['0.250', '0.005']
+    net feasibility: 0.001
+    reaction rules: ['rule0028_46', 'rule0126_2']

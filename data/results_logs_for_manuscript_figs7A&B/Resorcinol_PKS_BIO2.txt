@@ -1,0 +1,64 @@
+
+PKS design number: 0
+PKS design:
+    ["AT{'substrate': 'ABHA'}", 'loading: True']
+    ["AT{'substrate': 'Malonyl-CoA'}", "KR{'type': 'B'}", 'DH{}', 'ER{}', 'loading: False']
+PKS product: Nc1cc(O)cc(CCC(=O)O)c1
+PKS product similarity: 0.5
+Bio product: Nc1cc(O)cc(O)c1
+Bio product similarity: 0.8888888888888888
+
+PKS design number: 1
+PKS design:
+    ["AT{'substrate': 'ABHA'}", 'loading: True']
+    ["AT{'substrate': 'Malonyl-CoA'}", "KR{'type': 'B'}", 'DH{}', 'loading: False']
+PKS product: Nc1cc(O)cc(C=CC(=O)O)c1
+PKS product similarity: 0.5
+Bio product: Nc1cc(O)cc(O)c1
+Bio product similarity: 0.8888888888888888
+
+PKS design number: 2
+PKS design:
+    ["AT{'substrate': 'benz'}", 'loading: True']
+    ["AT{'substrate': 'Malonyl-CoA'}", "KR{'type': 'B'}", 'DH{}', 'ER{}', 'loading: False']
+PKS product: O=C(O)CCc1ccccc1
+PKS product similarity: 0.46153846153846156
+Bio product: Oc1cccc(O)c1
+Bio product similarity: 1.0
+Bio pathways:
+  Pathway #3:
+    O=C(O)CCc1ccccc1 + OO = O=C(O)CCc1cccc(O)c1 + O
+    O=C(O)CCc1cccc(O)c1 + O = CCC(=O)O + Oc1cccc(O)c1
+    reaction feasibilities: ['0.255', '0.602']
+    net feasibility: 0.154
+    reaction rules: ['rule1165_2', 'rule0085_1']
+  Pathway #6:
+    O=C(O)CCc1ccccc1 + O = CCC(=O)O + Oc1ccccc1
+    Oc1ccccc1 + OO = Oc1cccc(O)c1 + O
+    reaction feasibilities: ['0.533', '0.048']
+    net feasibility: 0.025
+    reaction rules: ['rule0085_1', 'rule1165_2']
+  Pathway #2:
+    O=C(O)CCc1ccccc1 + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + O=O = O=C(O)CCc1cccc(O)c1 + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    O=C(O)CCc1cccc(O)c1 + O = CCC(=O)O + Oc1cccc(O)c1
+    reaction feasibilities: ['0.041', '0.602']
+    net feasibility: 0.024
+    reaction rules: ['rule0004_09', 'rule0085_1']
+  Pathway #1:
+    O=C(O)CCc1ccccc1 + Cc1cc2c(cc1C)N(CC(O)C(O)C(O)COP(=O)(O)OP(=O)(O)OCC1OC(n3cnc4c(N)ncnc43)C(O)C1O)c1[nH]c(=O)[nH]c(=O)c1N2 + O=O = O=C(O)CCc1cccc(O)c1 + O + Cc1cc2nc3c(=O)[nH]c(=O)nc-3n(CC(O)C(O)C(O)COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(O)C3O)c2cc1C
+    O=C(O)CCc1cccc(O)c1 + O = CCC(=O)O + Oc1cccc(O)c1
+    reaction feasibilities: ['0.020', '0.602']
+    net feasibility: 0.012
+    reaction rules: ['rule0218_1', 'rule0085_1']
+  Pathway #4:
+    O=C(O)CCc1ccccc1 + O = CCC(=O)O + Oc1ccccc1
+    Oc1ccccc1 + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + O=O = Oc1cccc(O)c1 + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    reaction feasibilities: ['0.533', '0.019']
+    net feasibility: 0.010
+    reaction rules: ['rule0085_1', 'rule0004_10']
+  Pathway #5:
+    O=C(O)CCc1ccccc1 + O = CCC(=O)O + Oc1ccccc1
+    Oc1ccccc1 + Cc1cc2c(cc1C)N(CC(O)C(O)C(O)COP(=O)(O)OP(=O)(O)OCC1OC(n3cnc4c(N)ncnc43)C(O)C1O)c1[nH]c(=O)[nH]c(=O)c1N2 + O=O = Oc1cccc(O)c1 + O + Cc1cc2nc3c(=O)[nH]c(=O)nc-3n(CC(O)C(O)C(O)COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(O)C3O)c2cc1C
+    reaction feasibilities: ['0.533', '0.003']
+    net feasibility: 0.002
+    reaction rules: ['rule0085_1', 'rule0218_1']

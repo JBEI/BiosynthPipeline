@@ -1,7 +1,6 @@
 from biosynth_pipeline import biosynth_pipeline
 from DORA_XGB import DORA_XGB
 import os
-import pickle
 import warnings
 warnings.simplefilter('ignore')
 
@@ -9,13 +8,14 @@ dir_path = os.path.dirname(os.path.realpath(__file__)) + '/'
 
 ### User-defined parameters
 pathway_sequence = ['pks','bio']  # choose between ['pks'] or ['pks','bio']
-target_smiles = 'CCCCCCC'
-target_name = 'heptane'
+target_smiles = 'CCC=O'
+target_name = 'propionaldehyde'
 pks_release_mechanism = 'thiolysis' # choose from 'cyclization' or 'thiolysis'
 
 config_filepath = 'input_config_file.json'
 
-post_pks_rxn_model = DORA_XGB.feasibility_classifier()
+post_pks_rxn_model = DORA_XGB.feasibility_classifier(cofactor_positioning = 'add_concat',
+                                                     model_type = "spare")
 
 ### Create an object that is an instance of Biosynth Pipeline
 biosynth_pipeline_object = biosynth_pipeline.biosynth_pipeline(
@@ -30,6 +30,3 @@ biosynth_pipeline_object = biosynth_pipeline.biosynth_pipeline(
 if __name__ == "__main__":
     biosynth_pipeline_object.run_combined_synthesis(max_designs = 4)
     biosynth_pipeline_object.save_results_logs()
-
-    with open(dir_path + f'../data/hybrid_pathways_analysis/{target_name}_pks_plus_bio.pkl', 'wb') as f:
-        pickle.dump(biosynth_pipeline_object.results_logs, f)

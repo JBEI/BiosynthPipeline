@@ -4,7 +4,7 @@ FROM continuumio/miniconda3
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
+# Copy the current directory contents into the container at /streamlit_app
 COPY . /app
 
 # Optionally update Conda

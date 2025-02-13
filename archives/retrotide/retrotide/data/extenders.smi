@@ -1,3 +1,0 @@
-smiles	id	type	shortName
-O=C(O)CC(=O)[S]	Malonyl-CoA	CoA	mal
-C[C@@H](C(=O)O)C(=O)[S]	Methylmalonyl-CoA	CoA	mmal

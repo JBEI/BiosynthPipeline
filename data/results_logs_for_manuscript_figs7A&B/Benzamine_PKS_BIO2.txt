@@ -1,0 +1,22 @@
+
+PKS design number: 0
+PKS design:
+    ["AT{'substrate': 'PABA'}", 'loading: True']
+    ["AT{'substrate': 'Malonyl-CoA'}", "KR{'type': 'B'}", 'DH{}', 'loading: False']
+PKS product: Nc1ccc(C=CC(=O)O)cc1
+PKS product similarity: 0.5833333333333334
+Bio product: Nc1ccccc1
+Bio product similarity: 1.0
+Bio pathways:
+  Pathway #2:
+    Nc1ccc(C=CC(=O)O)cc1 + OO = Nc1ccc(C(O)=CC(=O)O)cc1 + O
+    Nc1ccc(C(O)=CC(=O)O)cc1 = O=C=CC(=O)O + Nc1ccccc1
+    reaction feasibilities: ['0.111', '0.129']
+    net feasibility: 0.014
+    reaction rules: ['rule1165_1', 'rule0053_13']
+  Pathway #1:
+    Nc1ccc(C=CC(=O)O)cc1 + O = C=CC(=O)O + Nc1ccc(O)cc1
+    Nc1ccc(O)cc1 + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O = Nc1ccccc1 + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + O=O
+    reaction feasibilities: ['0.535', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0085_1', 'rule0005_57']

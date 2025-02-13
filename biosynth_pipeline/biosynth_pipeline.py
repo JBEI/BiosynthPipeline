@@ -1,8 +1,7 @@
 import os
 import warnings
 import pandas as pd
-import pickle
-from typing import Union, List, Tuple, Optional
+from typing import Optional, Dict, Union, List
 from rdkit import RDLogger, Chem, DataStructs
 from rdkit.Chem import AllChem, rdFMCS
 from rdkit.Chem.AtomPairs import Pairs
@@ -10,37 +9,15 @@ import numpy as np
 from scipy.optimize import linear_sum_assignment
 import doranet.modules.enzymatic as enzymatic
 import doranet.modules.post_processing as post_processing
+from DORA_XGB import DORA_XGB
 import json
-
-# intra-package transfer (the try-except helps with remote HPC clusters)
-try:
-    import featurizations
-except:
-    from .featurizations import featurizations
 
 # Suppress RDKit warnings
 warnings.filterwarnings("ignore")
 RDLogger.DisableLog("rdApp.*")
 dir_path = os.path.dirname(os.path.realpath(__file__)) + '/'
 
-def weight(score: float) -> float:
-    """
-    A function that accepts a similarity score as the sole argument and returns a scaled value.
-    This is useful for filtering molecules in Pickaxe expansions by their Tanimoto similarity to the target
-
-    Parameters:
-    ----------
-    score: float
-        Tanimoto similarity of input metabolite with respect to the target input into Pickaxe
-
-    Returns:
-    ----------
-    score**4: float
-        Weighted tanimoto similarity raised to the power of 4
-        This makes it more likely for metabolites structurally similar to the target to be expanded upon
-    """
-    return score ** 4
-
+### helper function for calculating atom_atom_path similarity
 def get_atom_atom_path_sim(m1: Chem.Mol, m2: Chem.Mol) -> float:
     """
     compute the Atom Atom Path Similarity for a pair of RDKit molecules.
@@ -74,7 +51,7 @@ def get_atom_atom_path_sim(m1: Chem.Mol, m2: Chem.Mol) -> float:
     #	return FindAllPathsOfLengthMToN(mol, length, length, rootedAtAtom=rootedAtAtom, uniquepaths=uniquepaths)
 
     def FindAllPathsOfLengthMToN_Gobbi(mol, minlength, maxlength, rootedAtAtom=-1, uniquepaths=True):
-        '''this function returns the same set of bond paths as the Gobbi paper.  These differ a little from the rdkit FindAllPathsOfLengthMToN function'''
+        """this function returns the same set of bond paths as the Gobbi paper.  These differ a little from the rdkit FindAllPathsOfLengthMToN function"""
         paths = []
         for atom in mol.GetAtoms():
             if rootedAtAtom == -1 or atom.GetIdx() == rootedAtAtom:
@@ -118,7 +95,7 @@ def get_atom_atom_path_sim(m1: Chem.Mol, m2: Chem.Mol) -> float:
                 path.pop()
 
     def getpathintegers(m1, uptolength=7):
-        '''returns a list of integers describing the paths for molecule m1.  This uses numpy 16 bit unsigned integers to reproduce the data in the Gobbi paper.  The returned list is sorted'''
+        """returns a list of integers describing the paths for molecule m1.  This uses numpy 16-bit unsigned integers to reproduce the data in the Gobbi paper.  The returned list is sorted"""
         bondtypelookup = {}
         for b in m1.GetBonds():
             bondtypelookup[b.GetIdx()] = _BK_[b.GetBondType()], b.GetBeginAtom(), b.GetEndAtom()
@@ -154,7 +131,7 @@ def get_atom_atom_path_sim(m1: Chem.Mol, m2: Chem.Mol) -> float:
                             strpath.append(astr)
                     res.append((bk, ak))
                     currentidx = a.GetIdx()
-                pathuniqueint = np.ushort(0)  # work with 16 bit unsigned integers and ignore overflow...
+                pathuniqueint = np.ushort(0)  # work with 16-bit unsigned integers and ignore overflow...
                 for ires, (bi, ai) in enumerate(res):
                     # use 16 bit unsigned integer arithmetic to reproduce the Gobbi ints
                     #					pathuniqueint = ((pathuniqueint+bi)*_nAT_+ai)*_nBT_
@@ -174,7 +151,7 @@ def get_atom_atom_path_sim(m1: Chem.Mol, m2: Chem.Mol) -> float:
         return pathintegers
 
     def getcommon(l1, ll1, l2, ll2):
-        '''returns the number of items sorted lists l1 and l2 have in common.  ll1 and ll2 are the list lengths'''
+        """returns the number of items sorted lists l1 and l2 have in common.  ll1 and ll2 are the list lengths"""
         ncommon = 0
         ix1 = 0
         ix2 = 0
@@ -193,13 +170,13 @@ def get_atom_atom_path_sim(m1: Chem.Mol, m2: Chem.Mol) -> float:
         return ncommon
 
     def getsimaibj(aipaths, bjpaths, naipaths, nbjpaths):
-        '''returns the similarity of two sorted path lists.  Equation 2'''
+        """returns the similarity of two sorted path lists.  Equation 2"""
         nc = getcommon(aipaths, naipaths, bjpaths, nbjpaths)
         sim = float(nc + 1) / (max(naipaths, nbjpaths) * 2 - nc + 1)
         return sim
 
     def getmappings(simmatrixarray):
-        '''return a mapping of the atoms in the similarity matix using the heuristic algorithm described in the paper'''
+        """return a mapping of the atoms in the similarity matrix using the heuristic algorithm described in the paper"""
 
         costarray = np.ones(simmatrixarray.shape) - simmatrixarray
 
@@ -221,14 +198,14 @@ def get_atom_atom_path_sim(m1: Chem.Mol, m2: Chem.Mol) -> float:
         return mappings[:min(simmatrixarray.shape)]
 
     def gethungarianmappings(simmatrixarray):
-        '''return a mapping of the atoms in the similarity matrix - the Hungarian algorithm is used because it is invariant to atom ordering.  Requires scipy'''
+        """return a mapping of the atoms in the similarity matrix - the Hungarian algorithm is used because it is invariant to atom ordering.  Requires scipy"""
         costarray = np.ones(simmatrixarray.shape) - simmatrixarray
         row_ind, col_ind = linear_sum_assignment(costarray)
         res = zip(row_ind, col_ind)
         return res
 
     def getsimab(mappings, simmatrixdict):
-        '''return the similarity for a set of mapping.  See Eqn 3'''
+        """return the similarity for a set of mapping.  See Eqn 3"""
         naa, nab = simmatrixdict.shape
 
         score = 0.0
@@ -238,7 +215,7 @@ def get_atom_atom_path_sim(m1: Chem.Mol, m2: Chem.Mol) -> float:
         return simab
 
     def getsimmatrix(m1, m1pathintegers, m2, m2pathintegers):
-        '''generate a matrix of atom atom similarities.  See Figure 4'''
+        """generate a matrix of atom-atom similarities.  See Figure 4"""
 
         aidata = [((ai.GetAtomicNum(), ai.GetIsAromatic()), ai.GetIdx()) for ai in m1.GetAtoms()]
         bjdata = [((bj.GetAtomicNum(), bj.GetIsAromatic()), bj.GetIdx()) for bj in m2.GetAtoms()]
@@ -256,8 +233,8 @@ def get_atom_atom_path_sim(m1: Chem.Mol, m2: Chem.Mol) -> float:
         return simmatrixarray
 
     def AtomAtomPathSimilarity(m1, m2, m1pathintegers=None, m2pathintegers=None):
-        '''compute the Atom Atom Path Similarity for a pair of RDKit molecules.  See Gobbi et al, J. ChemInf (2015) 7:11
-            the most expensive part of the calculation is computing the path integers - we can precompute these and pass them in as an argument'''
+        """compute the Atom Atom Path Similarity for a pair of RDKit molecules.  See Gobbi et al, J. ChemInf (2015) 7:11
+            the most expensive part of the calculation is computing the path integers - we can precompute these and pass them in as an argument"""
         if m1pathintegers is None:
             m1pathintegers = getpathintegers(m1)
         if m2pathintegers is None:
@@ -274,399 +251,192 @@ def get_atom_atom_path_sim(m1: Chem.Mol, m2: Chem.Mol) -> float:
 
     return AtomAtomPathSimilarity(m1, m2)
 
-def has_carboxylic_acid(mol: Chem.Mol) -> bool:
-    """
-    Check if the molecule has a carboxylic acid group.
-
-    Parameters:
-    ----------
-    mol: rdkit.Chem.Mol
-        Mol object created from input metabolite using its SMILES
-
-    Returns:
-    ----------
-    mol.HasSubstructMatch(pattern): bool
-        True if the molecule has a carboxylic acid group, False otherwise
-    """
-    # Define a SMARTS pattern for carboxylic acid
-    carboxylic_acid_smarts = "[#6](=[O])[OH]"
-    pattern = Chem.MolFromSmarts(carboxylic_acid_smarts)
-    return mol.HasSubstructMatch(pattern)
-
-def double_reduce(mol: Chem.Mol) -> Optional[Chem.Mol]:
-    """
-    Doubly reduce an acid group
-
-    Parameters:
-    ----------
-    mol: rdkit.Chem.Mol
-        Mol object created from input metabolite using its SMILES
-
-    Returns:
-    ----------
-    RDKit molecule object after decarboxylation or None if double reduction is not possible.
-
-    """
-    # Define a reaction for decarboxylation
-    rxn = AllChem.ReactionFromSmarts("[#6:1](-[#6](=[O])-[OH])>>[#6:1]-[#6]")
-    products = rxn.RunReactants((mol,))
-    if products:
-        return products[0][0]
-    return None
-
-class feasibility_classifier:
-    """
-    A wrapper class for enzymatic reaction feasibility prediction using an XGBoost classification model.
-    This classifier uses a pre-trained model to predict the feasibility of a given enzymatic reaction based
-    on its reaction string. Input reaction strings can be featurized into reaction fingerprints via a combination
-    of ways to arrange the molecular fingerprints of substrates, products, and cofactors in each reaction.
-
-    Attributes:
-        cofactor_positioning (str): Describes the ordering of cofactors in the reaction fingerprint
-        feasibility_model (XGBoost model): The loaded XGBoost model for predicting reaction feasibility.
-        threshold (float): The threshold for deciding between feasible (1) and infeasible (0) reactions.
-        cofactors_set_wo_stereo (set): Set of cofactors without stereochemistry information.
-    """
-
-    def __init__(self, ML_model_type: str, cofactors_path: str):
-        """
-        Initialize the feasibility classifier by loading the appropriate XGBoost model based on the provided
-        ML_model_type and setting up the required configurations for reaction fingerprinting.
-
-        Parameters:
-        - ML_model_type (str): Type of the model, which determines how the cofactors are positioned in the
-                               reaction fingerprint. Options include 'by_ascending_MW', 'by_descending_MW',
-                               'add_concat', and 'add_subtract'.
-        - cofactors_path (str): Filepath to the cofactors' data, which is used for generating the reaction
-                                fingerprint.
-        """
-        model_type = 'xgboost'
-        fp_type = 'ecfp4'
-        max_species = 4
-        nBits = 2048
-
-        if ML_model_type == 'by_ascending_MW':
-            cofactor_positioning = 'by_ascending_MW'
-            model_path = dir_path + f'../models/{model_type}_{fp_type}_{nBits}_{max_species}_{cofactor_positioning}.pkl'
-            self.cofactor_positioning = cofactor_positioning
-            self.feasibility_model = pickle.load(open(model_path, 'rb'))
-            self.threshold = 0.668
-
-        if ML_model_type == 'by_descending_MW':
-            cofactor_positioning = 'by_descending_MW'
-            model_path = dir_path + f'../models/{model_type}_{fp_type}_{nBits}_{max_species}_{cofactor_positioning}.pkl'
-            self.cofactor_positioning = cofactor_positioning
-            self.feasibility_model = pickle.load(open(model_path, 'rb'))
-            self.threshold = 0.362
-
-        if ML_model_type == 'add_concat':
-            cofactor_positioning = 'add_concat'
-            model_path = dir_path + f'../models/{model_type}_{fp_type}_{nBits}_{max_species}_{cofactor_positioning}.pkl'
-            self.cofactor_positioning = cofactor_positioning
-            self.feasibility_model = pickle.load(open(model_path, 'rb'))
-            self.threshold = 0.372
-
-        if ML_model_type == 'add_subtract':
-            cofactor_positioning = 'add_subtract'
-            model_path = dir_path + f'../models/{model_type}_{fp_type}_{nBits}_{max_species}_{cofactor_positioning}.pkl'
-            self.cofactor_positioning = cofactor_positioning
-            self.feasibility_model = pickle.load(open(model_path, 'rb'))
-            self.threshold = 0.407
-
-        dummy_rxn_str = "" # create a dummy reaction object to extract out the list of cofactors
-        dummy_rxn_object = featurizations.reaction(dummy_rxn_str)
-        self.cofactors_set_wo_stereo = dummy_rxn_object.print_full_cofactors_set_wo_stereo(dir_path + cofactors_path)
-
-    def predict_proba(self, rxn_str:str) -> float:
-        """
-        Predict the probability of a reaction being feasible.
-
-        Parameters:
-        - rxn_str (str): The reaction string representing a balanced enzymatic reaction.
-
-        Returns:
-        - float: The predicted probability of the reaction being feasible.
-        """
-
-        # initialize a reaction object with custom-built featurizations package
-        rxn_object = featurizations.reaction(rxn_str)
-
-        # convert reaction string to a reaction fingerprint
-        # substrates go first followed by cofactors on the LHS in order of descending MW for positions 1-4
-        # same with products and cofactors on the RHS for positions 5-8
-        rxn_fp = rxn_object.rxn_2_fp_w_positioning(fp_type = 'ecfp4',
-                                                   nBits = 2048,
-                                                   is_folded = True,
-                                                   dim = 2048,
-                                                   max_species = 4,
-                                                   cofactor_positioning = self.cofactor_positioning,
-                                                   reaction_rule = None,
-                                                   all_cofactors_wo_stereo = self.cofactors_set_wo_stereo)
-
-        rxn_fp = rxn_fp.reshape(1, -1)  # reshape since only single sample
-        rxn_feasib_score = self.feasibility_model.predict_proba(rxn_fp)[:,1][0]
-
-        return rxn_feasib_score
-
-    def predict_label(self, rxn_str: str) -> int:
-        """
-        Predict whether a reaction is feasible or not based on the threshold set for the classifier.
-
-        Parameters:
-        - rxn_str (str): The reaction string representing the enzymatic reaction.
-
-        Returns:
-        - int: The predicted label for the reaction feasibility, where 1 indicates feasible and 0 indicates infeasible.
-        """
-
-        # initialize a reaction object with custom-built featurizations package
-        rxn_object = featurizations.reaction(rxn_str)
-
-        # convert reaction string to a reaction fingerprint
-        # substrates go first followed by cofactors on the LHS in order of descending MW for positions 1-4
-        # same with products and cofactors on the RHS for positions 5-8
-        rxn_fp = rxn_object.rxn_2_fp_w_positioning(fp_type='ecfp4',
-                                                   nBits=2048,
-                                                   is_folded=True,
-                                                   dim=2048,
-                                                   max_species=4,
-                                                   cofactor_positioning=self.cofactor_positioning,
-                                                   reaction_rule=None,
-                                                   all_cofactors_wo_stereo=self.cofactors_set_wo_stereo)
-
-        rxn_fp = rxn_fp.reshape(1, -1)  # reshape since only single sample
-        rxn_feasib_score = self.feasibility_model.predict_proba(rxn_fp)[:, 1][0]
-
-        if rxn_feasib_score >= self.threshold:
-            return 1
-        else:
-            return 0
-
+### the main Biosynth Pipeline class
 class biosynth_pipeline:
     def __init__(self,
-                pathway_sequence: list,
+                pathway_sequence: List[str],
                 target_smiles: str,
                 target_name: str,
-                feasibility_classifier: any,
+                feasibility_classifier: DORA_XGB.feasibility_classifier,
                 pks_release_mechanism: str,
                 config_filepath: str = '../scripts/config.json'):
         """
-        Combined pipeline for pathway design using multifunctional and monofunctional enzymes
+        Combined retrobiosynthesis pipeline for pathway design using multifunctional and monofunctional enzymes.
 
         Parameters:
         ----------
-        pathway_sequence: list
-            order of transformations using multifunctional and monofunctional enzymes
-            currently, we only support the order ['pks','non_pks']
-            this ensures that multifunctional enzymes are used to first make the carbon backbone of a target molecule
-            any further modifications would then be performed by monofunctional enzymes, which are fairly precise
-            such an approach also resembles the natural arrangement of enzymes within biosynthetic gene clusters.
-            if users would like to perform pathway design using only PKSs, however, set this to: ['pks']
-            similarly, if users would like to use only monofunctional enzymes, set this to ['non_pks']
+        pathway_sequence: List[str]
+            Order of transformations using both multifunctional and monofunctional enzymes.
+            Currently, we only support the order ['pks','non_pks'].
+            This ensures that multifunctional PKSs are used to first make the carbon backbone of a target molecule.
+            Any further modifications would then be performed by monofunctional enzymes, which are fairly precise.
+            Such an approach also resembles the natural arrangement of enzymes within biosynthetic gene clusters.
+            If users would like to perform pathway design using only PKSs, however, set this to: ['pks'].
 
         target_smiles: str
-            SMILES string of target molecule, e.g. 'CCC' for propane
+            SMILES string of target molecule, e.g. 'CCC' for propane.
 
         target_name: str
-            Name of target molecule, e.g. 'propane'
+            Name of target molecule, e.g. 'propane'.
 
-        feasibility_classifier: any
-            Our previously published enzymatic reaction feasibility classification ML model
+        feasibility_classifier: DORA_XGB.feasibility_classifier
+            Our previously published enzymatic reaction feasibility classification ML model (DORA-XGB).
 
         pks_release_mechanism: str
-            preferred termination reaction to release bound substrate from PKS chain
-            currently, we support 'cyclization' and 'thiolysis'
+            Preferred termination reaction to release bound substrate from PKS chain.
+            Currently, only 'cyclization' and 'thiolysis' are supported.
+            A thiolysis offloading reaction will produce a carboxylic acid.
+            Meanwhile, a cyclization offloading reaction will produce a lactone.
 
-        pks_starters_filepath (default = '../biosynth_pipeline/retrotide/data/starters.smi'): str
-            filepath of .smi file of PKS starter units
-
-        pks_extenders_filepath (default = '../biosynth_pipeline/retrotide/data/extenders.smi'): str
-            filepath of .smi file of PKS extender units
-
-        pks_starters (default = 'all'): list of str or str
-            list of PKS starter units that users would like to use
-            e.g. ['mal', 'mmal'] would use only malonyl-CoA and methylmalonyl-CoA as starters
-            or if 'all', then all PKS starter units originally in Retrotide will be used
-
-        pks_extenders (default = 'all'): list of str or str
-            list of PKS extender units that users would like to use
-            e.g. ['mal', 'mmal'] would use only malonyl-CoA and methylmalonyl-CoA as extenders
-            or if 'all', then all PKS extender units originally in Retrotide will be used
-
-        pks_similarity_metric (default = 'mcs_without_stereo'): str
-            metric to use when comparing the structural similarity of PKS product to target
-
-        non_pks_similarity_metric (default = 'mcs_without_stereo'): str
-            metric to use when comparing the structural similarity of non-PKS product to target
-
-        consider_target_stereo (default = False): bool
-            remove stereochemistry from the input target's SMILES string if False
-
-        known_metabolites_filepath (default = '../data/all_known_metabolites.txt'): str
-            filepath of known unique, metabolites found in BRENDA, KEGG, and METACYC
-
-        non_pks_cofactors_filepath (default = '../data/coreactants_and_rules/all_cofactors.tsv'): str
-            filepath of cofactors to use for pickaxe expansion using monofunctional enzymes
-
-        input_cpd_dir (default = '../data/input_compounds/'): str
-            filepath to store the SMILES string of the compound for pickaxe expansion using monofunctional enzymes
-
-        non_pks_rules (default = 'intermediate_non_dimerization'): str
-            reaction rules for pickaxe, choose from 'biological_generalized', 'biological_intermediate'
-            or 'intermediate_non_dimerization', which is optimal because these rules are most specific
-            and also suggest fewer false positives
-
-        non_pks_steps (default = 1): int
-            number of reaction steps to run pickaxe using monofunctional enzymes
-
-        non_pks_cores (default = 1): int
-            number of cores to run pickaxe using monofunctional enzymes
-
-        non_pks_sim_score_filter (default = False): bool
-            if True, then tanimoto similarity filters are used in pickaxe expansion
-
-        non_pks_sim_score_cutoffs (default = None): None or list of floats
-            tanimoto similarity cutoffs to be used for each generation
-
-        non_pks_sim_sample (default = False): bool
-            if True, then similarity sampling will be used during pickaxe expansions
-
-        non_pks_sim_sample_size (default = None): None or int
-            number of intermediates to sample at each pickaxe generation
-
-        stopping_criteria (default = 'first_product_formation'): str
-            by default, everything stops when the target product is formed
+        config_filepath (default = '../scripts/config.json'): str
+            Filepath of the input configurations for a BiosynthPipeline run.
+            This config file stores additional settings that may be helpful to vary depending on the target molecule.
+            After every run with BiosynthPipeline, the config file used for the run is stored as well.
+            This can help users remind themselves of the input settings used when they review their outputs.
 
         Attributes
         ----------
-        pathway_sequence: list
-            order of transformations, e.g. ['pks','non_pks','chem']
+        self.pathway_sequence: List[str]
+            The order of transformations, e.g. ['pks','non_pks'].
 
-        target_smiles: str
-            SMILES string of target compound
+        self.target_smiles: str
+            SMILES string of target molecule, e.g. 'CCC' for propane.
 
-        feasibility_classifier: any
-            Loaded feasibility classification model to predict the feasibilities of monofunctional enzymatic reactions
+        self.target_name: str
+            Name of target molecule, e.g. 'propane'.
 
-        pks_release_mechanism: str
-            termination reaction that will release the bound substrate from the PKS chain
+        self.feasibility_classifier: DORA_XGB.feasibility_classifier
+            Our previously published enzymatic reaction feasibility classification ML model (DORA-XGB).
 
-        pks_extenders_filepath: str
-            filepath for a .smi file of extender units that Retrotide will use to design chimeric PKSs
+        self.pks_release_mechanism: str
+            Preferred termination reaction to release bound substrate from PKS chain.
 
-        pks_starters_filepath: str
-            filepath for a .smi file of starter units that Retrotide will use to design chimeric PKSs
+        self.config_dict: dict
+            Input configuration dict for a BiosynthPipeline run.
 
-        pks_starters: list of str or str
-            user-selected starter units (can be 'all' or a list like ['mal','mmal']
+        self.pks_extenders_filepath: str
+            Filepath for a .smi file of extender units that RetroTide will use to design chimeric PKSs.
+            This filepath is defined in the input config file.
 
-        pks_extenders: list of str or str
-            user-selected extender units (can be 'all' or a list like ['mal','mmal']
+        self.pks_starters_filepath: str
+            Filepath for a .smi file of starter units that RetroTide will use to design chimeric PKSs.
+            This filepath is defined in the input config file.
 
-        pks_similarity_metric: str
-            user-selected metric to compare structural similarity between pks product and target product
+        self.pks_starters: Union[str, List[str]]
+            User-selected starter units (can be 'all' or a list like ['mal','mmal'].
+            This list of starters or the option to use all starters is set in the input config file.
 
-        non_pks_similarity_metric: str
-            user-selected metric to compare structural similarity between any non-pks product and target product
+        self.pks_extenders: Union[str, List[str]]
+            User-selected extender units (can be 'all' or a list like ['mal','mmal'].
+            This list of extenders or the option to use all starters is set in the input config file.
 
-        consider_target_stereo: bool
-            if false, stereochemical information will be removed from the input target SMILES in self.target_smiles
+        self.pks_similarity_metric: str
+            User-selected metric to compare structural similarity between the pks product and the target product.
+            This can be set in the input config file, using 'mcs_without_stereo' is recommended.
 
-        known_metabolites: set
-            set of unique metabolites across Brenda, KEGG, and MetaCyc loaded from the input known_metabolites_filepath
+        self.non_pks_similarity_metric: str
+            User-selected metric to compare structural similarity between any non-pks product and the target product.
+            This can be set in the input config file, using 'mcs_without_stereo' is recommended.
 
-        non_pks_cofactors: str
-            filepath of cofactors to use for pickaxe expansion with monofunctional enzymes
+        self.non_pks_steps: int
+            Number of steps to use for a DORAnet biological expansion.
+            This can be set in the input config file.
 
-        input_cpd_dir: str
-            filepath to the directory that will house the .tsv file of a SMILES string for pickaxe expansion
+        self.non_pks_cores: int
+            Number of computing cores to use.
+            While a DORAnet expansion doesn't use multiprocessing, the pathway searching step in post-processing does.
+            This can be set in the input config file.
 
-        non_pks_rules: str
-            user-input rule choice for reaction rules to use for pickaxe expansion
-            this can be either 'biological_generalized', 'biological_intermediate' or 'intermediate_non_dimerization'
+        self.stopping_criteria: str
+            Criteria for when to stop searching for new products.
+            This can be set in the input config file.
+            Currently, only "first_product_formation" is supported, i.e., run stops the moment the target is reached.
 
-        rule_filepath: str
-            filepath to the rule choice for pickaxe expansion
+        self.pks_designs: Union[list, None]
+            List of potential PKS designs from RetroTide after RetroTide is run.
 
-        non_pks_steps: int
-            number of steps to use for a pickaxe biological expansion only
+        self.pks_top_final_product: Union[str, None]
+            Sanitized SMILES string of final PKS product using the best PKS design.
 
-        non_pks_cores: int
-            number of computing cores to use for a pickaxe biological expansion only
+        self.non_pks_compounds_df: Union[pd.DataFrame, None]
+            DataFrame of compounds generated by a DORAnet enzymatic reaction network.
 
-        non_pks_sim_score_filer: bool
-            if True, a tanimoto similarity score cutoff filter will be used for pickaxe biological expansion only
+        self.pathways_found: Union[bool, None]
+            True if enzymatic pathways are found by DORAnet connecting PKS intermediate to final, target molecule.
 
-        non_pks_sim_score_cutoffs: None or list of floats
-            tanimoto similarity cutoffs to filter intermediates in each step of a pickaxe biological expansion only
+        self.non_pks_pathways: Union[dict, None]
+            Pathways generated from a DORAnet biology expansion.
 
-        non_pks_sim_sample: bool
-            if True, a similarity sampling filter will be used for pickaxe biologicale expansions only
+        self.results_logs: list
+            Result logs from the entire Biosynth Pipeline run.
 
-        non_pks_sim_sample_size: None or int
-            similarity sampling size to use to filter intermediates in each step of a pickaxe biological expansion only
-
-        stopping_criteria: str
-            criteria for when to stop searching for new products
-
-        pks_designs: list
-            List of potential PKS module designs from Retrotide
-
-        pks_top_final_product: str
-            Sanitized SMILES string of final PKS product using the best PKS design
-
-        non_pks_compounds_df: Pandas DataFrame
-            DataFrame of compounds generated from a pickaxe biological expansion only
-
-        non_pks_pathways: Dict
-            pathways generated from a pickaxe biological expansion ony
-
-        current_pickaxe_graph: Networkx graph
-            Networkx graph representing a pickaxe biological expansion only
-
-        current_pickaxe_precursor: str
-            SMILES string of PKS product for pickaxe biological expansion
-
-        results_logs: list
-            result logs
+        self.ranked_metabolites: Union[dict, None]
+            Metabolites generated by DORAnet ranked by their chemical similarity with respect to the target.
 
         Methods
         ----------
         _canon_smi:
-            internal function to canonicalize SMILES string
+            Internal function to canonicalize SMILES string.
 
         _remove_stereo:
-            internal function to remove stereochemical information from a SMILES string
+            Internal function to remove stereochemical information from a SMILES string.
 
-        _reformat_pickaxe_rxn_str:
-            internal function to reformat a reaction equation from a biological pickaxe expansion for feasibility
+        _simplify_reaction:
+            Internal function to reformat reaction str from a DORAnet expansion for DORA-XGB feasibility calculations.
 
         _calculate_similarity:
-            internal function to calculate the chemical similarity between two input SMILES strings
-
-        _select_starters:
-            internal function to load PKS starter units based on user inputs
-
-        _select_extenders:
-            internal function to load PKS extender units based on user inputs
+            Internal function to calculate the chemical similarity between two input SMILES strings.
 
         _initialize_retrotide:
-            internal function to import Retrotide with selected starters and extenders
+            Internal function to reload RetroTide after desired starter and extender units have been set by users.
 
-        run_pks_synthesis: run retrotide with predetermined pks release reaction
-        run_non_pks_synthesis
+        _select_starters:
+            Internal function to load PKS starter units based on user inputs.
+
+        _select_extenders:
+            Internal function to load PKS extender units based on user inputs.
+
+        _initialize_retrotide:
+            Internal function to import RetroTide with selected starters and extenders.
+
+        run_pks_termination:
+            Run a PKS offloading reaction to detach the PKS substrate from the PKS assembly.
+            This simulates the action of a terminal thioesterase (TE) domain that catalyzes this offloading reaction.
+            Either condensation reaction to form an acid or cyclization reaction to form a lactone, can be run.
+            Users can define their choice of this termination reaction in the input config file.
+
+        run_pks_synthesis:
+            Calls on RetroTide to begin designing chimeric type I PKSs that can synthesize PKS products.
+            RetroTide will then attempt to generate PKS products chemically similar to the final, target molecule.
+
+        run_biology:
+            Calls on DORAnet to enzymatically modify the PKS product from RetroTide.
+            DORAnet will attempt to modify the PKS product in order to reach the final, target molecule.
+            If pathways can successfully be found between the PKS product, and final target, then these will be saved.
+
+        calculate_non_pks_pathway_feasibilities:
+            Calls on DORA-XGB to predict the feasibilities of enzymatic reactions generated by DORAnet.
+            DORA-XGB will be invoked if DORAnet did successfully find pathways between the PKS product and final target.
+
+        run_combined_synthesis:
+            Calls on either just RetroTide, or both RetroTide and DORAnet to synthesize the desired target molecule.
+
+        save_results_logs:
+            Saves all results as a .txt file.
         """
 
+        # the following attributes are set directly by instantiating an object of the biosynth_pipeline class
         self.pathway_sequence = pathway_sequence
-        self.target_smiles = self._canon_smi(target_smiles) # canonicalize input target SMILES but retain stereo first
+        self.target_smiles = self._remove_stereo(self._canon_smi(target_smiles)) # canonicalize & remove target stereo
         self.target_name = target_name
         self.feasibility_classifier = feasibility_classifier
         self.pks_release_mechanism = pks_release_mechanism
-        self.config_filepath = config_filepath
 
-        with open(self.config_filepath, 'r') as file:
+
+        with open(config_filepath, 'r') as file:
             self.config_dict = json.load(file)
 
+        # the following attributes are set after reading in the config.json file as a dict
         self.pks_extenders_filepath = dir_path + self.config_dict['pks_extenders_filepath']
         self.pks_starters_filepath = dir_path + self.config_dict['pks_starters_filepath']
         self.pks_starters = self.config_dict['pks_starters']
@@ -674,53 +444,29 @@ class biosynth_pipeline:
 
         self._select_extenders(self.pks_extenders)  # load PKS extenders based on user input
         self._select_starters(self.pks_starters)  # load PKS starters based on user input
-        self._initialize_retrotide()  # then re-import retrotide (slightly inefficient)
+        self._initialize_retrotide()  # then re-import RetroTide (definitely inefficient but fix in future)
 
         self.pks_similarity_metric = self.config_dict['pks_similarity_metric']
         self.non_pks_similarity_metric = self.config_dict['non_pks_similarity_metric']
 
-        # remove stereochemistry if user does not want to consider stereo
-        # stereochemistry is not currently supported anyway but is on the docket for future versions
-        self.consider_target_stereo = bool(self.config_dict['consider_target_stereo'])
-        if not self.consider_target_stereo:
-            self.target_smiles = self._remove_stereo(target_smiles)
-
-        self.known_metabolites_filepath = self.config_dict['known_metabolites_filepath']
-        self.known_metabolites = set(line.strip() for line in open(dir_path + self.known_metabolites_filepath))
-        self.non_pks_cofactors_filepath = self.config_dict['non_pks_cofactors_filepath']
-        self.non_pks_cofactors = dir_path + self.non_pks_cofactors_filepath
-        self.input_cpd_dir = dir_path + self.config_dict['input_cpd_dir']
-
-        # load in reaction rules for DORAnet - choose from generalized, intermediate or 'intermediate_non_dimerization
-        self.non_pks_rules = self.config_dict['non_pks_rules']
-        if self.non_pks_rules == 'biological_intermediate':
-            self.rule_filepath =  dir_path + '../data/coreactants_and_rules/JN3604IMT_rules.tsv'
-
-        elif self.non_pks_rules == 'biological_generalized':
-            self.rule_filepath =  dir_path + '../data/coreactants_and_rules/JN1224MIN_rules.tsv'
-
-        elif self.non_pks_rules == 'intermediate_non_dimerization':
-            self.rule_filepath =  dir_path + '../data/coreactants_and_rules/non_dimerization_imt_rules.tsv'
-
         self.non_pks_steps = int(self.config_dict['non_pks_steps'])
         self.non_pks_cores = int(self.config_dict['non_pks_cores'])
-        self.non_pks_sim_score_filter = bool(self.config_dict['non_pks_sim_score_filter'])
-        self.non_pks_sim_score_cutoffs = [float(val) for val in self.config_dict['non_pks_sim_score_cutoffs']]
-        self.non_pks_sim_sample = bool(self.config_dict['non_pks_sim_sample'])
-        self.non_pks_sim_sample_size = int(self.config_dict['non_pks_sim_sample_size'])
+
+        try:
+            self.bio_max_atoms = {key: int(value) for key, value in self.config_dict['bio_max_atoms'].items()}
+        except:
+            self.bio_max_atoms = None
+
         self.stopping_criteria = self.config_dict['stopping_criteria']
 
-        ### initialize attributes that will have values further updated afterwards
-        self.pks_designs = None
-        self.pks_top_final_product = None
-        self.non_pks_compounds_df = None
-        self.pathways_found = None
-        self.current_pickaxe_graph = None
-        self.current_pickaxe_precursor = None
-        self.results_logs = []
-        self.pks_top_final_product = None
-        self.non_pks_pathways = None
-        self.ranked_metbolites = None
+        # initialize other attributes that will have their values further updated afterward
+        self.pks_designs: Union[list, None] = None
+        self.pks_top_final_product: Union[str, None] = None
+        self.non_pks_compounds_df: Union[pd.DataFrame, None] = None
+        self.pathways_found: Union[bool, None] = None
+        self.non_pks_pathways: Union[dict, None] = None
+        self.results_logs: list = []
+        self.ranked_metabolites: Union[dict, None] = None
 
     ###########################
     # Cheminformatics methods #
@@ -763,8 +509,7 @@ class biosynth_pipeline:
         Processes the input SMILES string and return a version without stereochemical information.
 
         The function uses RDKit to parse the SMILES string into a molecule object, removes its stereochemistry,
-        and then converts it back to a SMILES string. This is useful for Pickaxe operations since biological rules
-        do not take stereochemistry into account
+        and then converts it back to a SMILES string. This is useful since DORAnet doesn't account for stereochemistry.
 
         Parameters:
         ----------
@@ -794,7 +539,10 @@ class biosynth_pipeline:
         """
         Converts a reaction into a readable reaction with stoichiometry applied.
 
-        The function converts a reaction formatted by DORAnet into a readable, balanced equation.
+        The function converts a reaction string formatted by DORAnet into one that can be passed to DORA-XGB.
+        DORA-XGB will then take this input reformatted reaction string and predict a feasibility score for the reaction.
+        DORA-XGB predicts the feasibility scores of enzymatic reaction only.
+        We do not currently have a way to predict the feasibility of PKS designs suggested by RetroTide.
 
         Parameters:
         ----------
@@ -918,18 +666,17 @@ class biosynth_pipeline:
             return score
 
     ##########################
-    # Retrotide/ PKS methods #
+    # RetroTide/ PKS methods #
     ##########################
 
     @staticmethod
     def _initialize_retrotide() -> None:
         """
-        Initializes the Retrotide module by importing necessary components.
+        Initializes the RetroTide module by importing necessary components.
 
-        This static method is responsible for setting up the Retrotide environment by importing the main
-        Retrotide module, as well as specific submodules 'structureDB' and 'designPKS' from the Retrotide package.
-        It ensures that these components are available in the current namespace for further operations related
-        to Retrotide within the class.
+        This static method is responsible for setting up the RetroTide environment by importing main RetroTide module.
+        The specific submodules 'structureDB' and 'designPKS' from the RetroTide package are imported as well.
+        This ensures that these components are available in the current namespace for further RetroTide operations.
 
         Parameters:
         ----------
@@ -942,8 +689,8 @@ class biosynth_pipeline:
         Notes:
         ----------
         - This method does not return any value.
-        - It's assumed that the RETROTIDE package is correctly installed and accessible in the Python environment.
-        - The method should be called within the class when RETROTIDE initialization is required before performing
+        - It's assumed that the RetroTide package is correctly installed and accessible in the Python environment.
+        - The method should be called within the class when RetroTide initialization is required before performing
           RETROTIDE-related operations.
         - The method is static, meaning it can be called on the class itself without needing an instance of the class.
         """
@@ -990,6 +737,7 @@ class biosynth_pipeline:
         To generate an SMI file for all available extenders:
             # >>> _select_extenders('all')
         """
+
         molecules_data = [
         {"smiles": "O=C(O)CC(=O)[S]", "id": "Malonyl-CoA", "type": "CoA", "shortName": "mal"},
         {"smiles": "C[C@@H](C(=O)O)C(=O)[S]", "id": "Methylmalonyl-CoA", "type": "CoA", "shortName": "mmal"},
@@ -1075,6 +823,7 @@ class biosynth_pipeline:
         To generate an SMI file for all available starters:
             # >>> select_starters('all')
         """
+
         molecules_data = [
             {"smiles": "CC(=O)[S]", "id": "Acetyl-CoA", "type": "CoA", "shortName": "Acetyl-CoA"},
             {"smiles": "CCC(=O)[S]", "id": "Propionyl-CoA", "type": "CoA", "shortName": "prop"},
@@ -1142,7 +891,9 @@ class biosynth_pipeline:
 
         print("\nStarter units successfully chosen for polyketide synthases")
 
-    def run_pks_termination(self, pks_design_num: int, pks_release_mechanism: str) -> Union[str, None]:
+    def run_pks_termination(self,
+                            pks_design_num: int,
+                            pks_release_mechanism: str) -> Union[str, None]:
         """
         Executes the final termination reaction in the polyketide synthase (PKS) design process.
         This function retrieves the product bound to the final PKS module and performs the specified release reaction.
@@ -1159,14 +910,16 @@ class biosynth_pipeline:
 
         Returns:
         ----------
-        product_smiles: str
+        product_smiles: Union[str, None]
             SMILES string of the PKS product
+            None if no product can be generated, typically if a cyclization reaction is specified but cannot be run.
 
         Raises:
         ----------
         ValueError:
             Unsupported pks_release_mechanism is provided or cyclization release reaction cannot be performed
         """
+
         from .retrotide import retrotide
 
         # first, we compute the product bound to the PKS modules in the final PKS step
@@ -1201,15 +954,15 @@ class biosynth_pipeline:
 
     def run_pks_synthesis(self) -> None:
         """
-        Executes the synthesis process for polyketide synthases (PKSs) using Retrotide.
+        Executes the synthesis process for polyketide synthases (PKSs) using RetroTide.
         This function generates and then stores potential PKS designs based on the input target molecule.
         It initiates the PKS design process then selects the best PKS design based on chemical similarity.
         This similarity is computed between the PKS product and the final target.
         Finally, a PKS termination/ offloading reaction is run to obtain the final PKS product.
 
         Following is a detailed breakdown of the key steps this function performs:
-        1. re-imports retrotide to ensure only user-defined starter and extender units are used
-        2. runs retrotide to design PKSs and then stores the designs (by assigning them to self.pks_designs)
+        1. re-imports RetroTide to ensure only user-defined starter and extender units are used
+        2. runs RetroTide to design PKSs and then stores the designs (by assigning them to self.pks_designs)
         3. prints the best PKS design based on the chemical similarity between the PKS product and final target
         4. runs the specified PKS termination reaction on the top PKS design to get the final PKS product
 
@@ -1217,13 +970,15 @@ class biosynth_pipeline:
         ----------
         None
         """
-        print("\nStarting PKS synthesis with Retrotide")
+
+        print("\nStarting PKS synthesis with RetroTide")
         print("---------------------------------------------")
 
-        # re-import Retrotide to ensure only user-defined starter and extender units are used (slightly hacky)
+        # re-import RetroTide to ensure only user-defined starter and extender units are used (slightly hacky)
+        #TODO - find a better way to do this
         from .retrotide import retrotide
 
-        # run Retrotide then generate and store Retrotide's PKS designs
+        # run RetroTide then generate and store RetroTide's PKS designs
         self.pks_designs = retrotide.designPKS(targetMol = Chem.MolFromSmiles(self.target_smiles),
                                                similarity = self.pks_similarity_metric)
 
@@ -1255,15 +1010,16 @@ class biosynth_pipeline:
     # DORAnet / biology methods #
     ###########################
 
-    def run_biology(self, precursor_smiles: str,
+    def run_biology(self,
+                    precursor_smiles: str,
                     target_name: str,
                     target_smiles: str,
+                    max_atoms: Optional[Dict[str,int]],
                     direction: str,
                     num_generations: int,
-                    PKS_design_number: int) -> dict:
+                    PKS_design_number: int) -> None:
         """
-        A wrapper to run DORAnet biology and return biological pathways from the top PKS product generated by Retrotide
-        to the target metabolite.
+        Run an enzymatic network expansion with DORAnet using the PKS product generated by RetroTide.
 
         Parameters:
         ----------
@@ -1285,16 +1041,16 @@ class biosynth_pipeline:
         PKS_design_number: int
             the number of the PKS product biologically expanded upon by DORAnet.
 
-        Returns:
+        Modifies:
         ----------
-        pathways_found: boolean
+        self.pathways_found: boolean
             indicates whether biological pathways were successfully found from the top PKS product to the target.
 
-        pathways_dict: dict
+        self.pathways_dict: dict
             a dictionary of pathways found, with the key being pathway number, and the value being a dictionary of
             reactions, with the reaction number as the key and values as reaction strings.
 
-        ranked_metabolites: dict
+        self.ranked_metabolites: dict
             a dictionary of most  similar molecules to the target metabolite as determined by the MCS algorithm
             in the case that the target cannot be biologically produced from the top PKS product with the given
             number of generations.
@@ -1309,6 +1065,7 @@ class biosynth_pipeline:
         precursor_mol = Chem.MolFromSmiles(precursor_smiles)
         if precursor_mol is None:
             raise ValueError(f'Invalid SMILES string: {precursor_smiles}')
+
         Chem.RemoveStereochemistry(precursor_mol)
         canon_precursor_smiles = Chem.MolToSmiles(precursor_mol)
 
@@ -1316,19 +1073,19 @@ class biosynth_pipeline:
         job_name = f'{target_name}_PKS{PKS_design_number}_BIO{num_generations}'
 
         forward_network = enzymatic.generate_network(
-            job_name = job_name,  # name of the job, can be anything
-            starters = {f'{canon_precursor_smiles}'},  # starting molecule(s)
-            gen = num_generations,  # number of generations
-            direction = f'{direction}',  # direction of operators, here forward direction
-        )
+                                        job_name = job_name,  # name of the job, can be anything
+                                        starters = {f'{canon_precursor_smiles}'},  # starting molecule(s)
+                                        gen = num_generations,  # number of generations
+                                        direction = f'{direction}',  # direction of operators, here forward direction
+                                        max_atoms = max_atoms) # max atoms allowed for each product
 
         # 3. Extract all products from running DORAnet and check if target is present
         # to check if target is present, we must also canonicalize and remove stereo from target_smiles
-        # then if we can get a list of metabolites from forward_network, let's check if target is in there
-
+        # then, if we can get a list of metabolites from the forward_network, let's check if target is in there
         target_mol = Chem.MolFromSmiles(target_smiles)
         if target_mol is None:
             raise ValueError(f'Invalid SMILES string: {precursor_smiles}')
+
         Chem.RemoveStereochemistry(target_mol)
         canon_target_smiles = Chem.MolToSmiles(target_mol)
 
@@ -1338,9 +1095,7 @@ class biosynth_pipeline:
 
         try:
             post_processing.one_step(
-                networks = {
-                    forward_network,
-                },
+                networks = {forward_network},
                 total_generations = num_generations,
                 starters = {f'{canon_precursor_smiles}'},
                 target = f'{canon_target_smiles}',
@@ -1348,9 +1103,8 @@ class biosynth_pipeline:
                 search_depth = num_generations,
                 max_num_rxns = num_generations,
                 min_rxn_atom_economy = 0,
-                num_process = num_generations,
-            )
-            self.pathways_found = True
+                num_process = self.non_pks_cores)
+
             pathways_dict = {}
 
             with open(f'{job_name}_pathways.txt', 'r') as file:
@@ -1369,12 +1123,14 @@ class biosynth_pipeline:
                             reaction = lines[i + j + 2].rstrip('\n')
                             rxn_string = self.simplify_reaction(reaction, stoich_list[j])
                             reactions_list.append(rxn_string)
-                            rule = lines[i + j + 3].rstrip('\n')
+                            rule = lines[i + j + 2 + len(stoich_list)].rstrip('\n')
+                            # rule = lines[i + j + 3]
                             rules_list.append(rule)
 
                         pathways_dict.update({f'pathway {pathway_counter}': {'reactions (SMILES)': reactions_list,
                                                                              'reaction rules': rules_list}})
 
+            self.pathways_found = True
             self.non_pks_pathways = pathways_dict
 
         # In the case that pathways are not found, the top 10 most MCS similar molecules to the target molecule are
@@ -1384,206 +1140,13 @@ class biosynth_pipeline:
             self.pathways_found = False
             mol_dict = {}
             for mol in forward_network.mols:
-                mol_dict[mol.uid] = self._calculate_similarity(target_smiles, mol.uid, 'mcs_without_stereo')
+                mol_dict[mol.uid] = self._calculate_similarity(target_smiles,
+                                                               mol.uid,
+                                                               'mcs_without_stereo')
+
             ranked_metabolites = dict(sorted(mol_dict.items(), key=lambda item: item[1], reverse=True))
 
             self.ranked_metabolites = ranked_metabolites
-
-    def run_pickaxe(self, precursor_smiles: str) -> None:
-        """
-        Conducts a biological Pickaxe expansion on a specified precursor molecule. This could be a PKS product.
-        This function performs multiple steps, such as, the canonicalization of the input SMILES string, tsv file
-        preparation for starting and target compounds, initialization of the biological pickaxe object with user-defined
-        or default rules and coreactants, loading of the compounds into Pickaxe, application of filters,
-        execution of the transformation process, and extraction as well as storage of the resulting compounds
-        and pathways. The detailed order of operations for performing  a Pickaxe expansion and extracting pathways
-        is given below.
-
-        Parameters:
-        ----------
-        precursor_smiles: str
-            The SMILES string of the precursor molecule for the Pickaxe expansion
-
-        Returns:
-        ----------
-        None
-
-        Notes:
-        ----------
-        - this function modifies the `non_pks_compounds_df`, `non_pks_pathways` attributes of the class instance
-        - this function assumes that `target_smiles`, `non_pks_cofactors`, `rule_filepath`, `input_cpd_dir`,
-          `non_pks_sim_score_filter`, `non_pks_sim_score_cutoffs`, `non_pks_sim_sample`, `non_pks_sim_sample_size`,
-          `non_pks_cores`, `non_pks_steps`, and `known_metabolites` are properly set attributes of the instance.
-        - this function requires the 'pickaxe_utils' module and associated functions and classes
-          (e.g., `SimilarityFilter`, `SimilaritySamplingFilter`, `Pickaxe`) to be properly imported and configured
-        - the function may raise FileNotFoundError if specified rule files are not found
-
-
-        Processes:
-        ----------
-        1. canonicalizes the input precursor_smiles for consistency.
-        2. writes the starting and target compounds to respective .tsv files
-        3. initializes a pickaxe object with user-defined or default rules and coreactants
-        4. loads the starting and target compounds into the biological pickaxe object
-        5. applies similarity-based filters if specified by the user
-        6. executes the transformation process in pickaxe across the specified number of generations
-        7. assigns ID to the generated compounds
-        8. extracts non-PKS reactions and utilizes them to create a graph
-        9. extracts sequences and pathways from the graph that lead from the PKS product to the target molecule
-        """
-        print(f"\nStarting pickaxe expansion on {precursor_smiles}")
-        print("---------------------------------------------")
-        self.current_pickaxe_precursor = self._canon_smi(self._remove_stereo(precursor_smiles))
-
-        # write starting compound (PKS product) to a tsv file
-        precursor_filepath = pickaxe_utils.write_cpds_to_tsv(cpd_name = self.current_pickaxe_precursor,
-                                                             cpd_smi = self.current_pickaxe_precursor,
-                                                             input_cpd_dir = self.input_cpd_dir)
-
-        # write target compound (expected Pickaxe product) to a tsv file
-        target_filepath = pickaxe_utils.write_cpds_to_tsv(cpd_name = self.target_smiles,
-                                                          cpd_smi = self.target_smiles,
-                                                          input_cpd_dir = self.input_cpd_dir)
-
-        # initialize a Pickaxe object
-        try:
-            pk = Pickaxe(coreactant_list = self.non_pks_cofactors,
-                         rule_list = self.rule_filepath)
-        except FileNotFoundError:
-            print('\nInvalid reaction rules filepath. Switching to intermediate rules.')
-            pk = Pickaxe(coreactant_list = self.non_pks_cofactors,
-                         rule_list = '/.root/data/coreactants_and_rules/JN3604IMT_rules.tsv')
-
-        # load starting compound (PKS product) and target compound (expected Pickaxe product) into Pickaxe
-        pk.load_compound_set(compound_file = precursor_filepath)
-        pk.load_targets(target_compound_file = target_filepath)
-
-        ## incorporate filters into pickaxe
-        if self.non_pks_sim_score_filter is True:
-            sample_fingerprint_method = "Morgan"
-            cutoff_fingerprint_method = "Morgan"
-            cutoff_fingerprint_args = {"radius": 2}
-            cutoff_similarity_method = "Tanimoto"  # Similarity filter
-
-            crit_similarity = taniFilter = SimilarityFilter(
-                crit_similarity = self.non_pks_sim_score_cutoffs,
-                increasing_similarity = False, # i.e metabolites don't have to strictly increase in similarity
-                fingerprint_method = sample_fingerprint_method,
-                fingerprint_args = cutoff_fingerprint_args,
-                similarity_method = cutoff_similarity_method)
-
-            pk.filters.append(crit_similarity)
-
-        if self.non_pks_sim_sample is True:
-            # Similarity sampling filter
-            sample_size = self.non_pks_sim_sample_size
-            sample_fingerprint_method = "Morgan"
-            sample_fingerprint_args = {"radius": 2}
-            sample_similarity_method = "Tanimoto"
-
-            taniSampleFilter = SimilaritySamplingFilter(
-                sample_size = sample_size,
-                weight=weight,
-                fingerprint_method=sample_fingerprint_method,
-                fingerprint_args = sample_fingerprint_args,
-                similarity_method=sample_similarity_method)
-            pk.filters.append(taniSampleFilter)
-
-        ### most important - run Pickaxe
-        pk.transform_all(processes = self.non_pks_cores,
-                         generations = self.non_pks_steps)
-        pk.assign_ids()
-
-        # create and store dataframe of compounds generated by Pickaxe
-        compounds_df = pickaxe_utils.create_compounds_df(pk)
-
-        # store the dataframe of compounds generated by Pickaxe
-        self.non_pks_compounds_df = compounds_df
-
-        # extract non-PKS reactions from Pickaxe object
-        pk_rxn_keys = [key for key in pk.reactions.keys()]
-
-        all_pk_rxn_ids = [pk.reactions[key]['ID'] for key in pk_rxn_keys]
-        all_rxn_strs_in_cpd_ids = [pk.reactions[key]['ID_rxn'] for key in pk_rxn_keys]
-        all_rxn_strs_in_SMILES = [pk.reactions[key]['SMILES_rxn'] for key in pk_rxn_keys]
-        all_rxn_rules = [list(pk.reactions[key]['Operators']) for key in pk_rxn_keys]
-
-        # use extracted reactions and Pickaxe object to create a graph
-        self.current_pickaxe_graph = pickaxe_utils.create_graph(all_rxn_strs_in_cpd_ids,
-                                                                self.current_pickaxe_precursor)
-
-        # get and store sequences from Graph
-        sequences = pickaxe_utils.get_sequences_from_graph(G = self.current_pickaxe_graph,
-                                                           compounds_df = self.non_pks_compounds_df,
-                                                           precursor_smiles = self.current_pickaxe_precursor,
-                                                           target_smiles = self.target_smiles,
-                                                           num_generations = self.non_pks_steps)
-
-        ### If Pickaxe was able to generate the target molecule, extract the sequences
-        if sequences:
-            # initialize a dictionary to store all sequences between the PKS product and eventual target product
-            all_sequences_dict = {}
-
-            for i, seq in enumerate(sequences):
-                seq_SMILES = [list(compounds_df[compounds_df["ID"] == id]["SMILES"])[0] for id in seq]
-
-                all_sequences_dict.update({f"seq {i}":
-                                               {"seq_num": str(i),
-                                                "seq (IDs)": seq,
-                                                "seq (SMILES)": seq_SMILES}})
-
-            # extract pathways between the PKS product and eventual target product
-            self.non_pks_pathways = pickaxe_utils.get_pathways_from_graph_proto(sequences,
-                                                                                self.known_metabolites,
-                                                                                self.non_pks_compounds_df,
-                                                                                pk)
-        else:
-            self.non_pks_pathways = None
-
-    def pick_closest_non_pks_product(self) -> Tuple[str,float]:
-        """
-        Identifies the most chemically similar non-PKS product to the final, target product. This function filters
-        compounds from a pickaxe expansion and which are stored in 'self.non_pks_compounds_df'. It then calculates the
-        chemical similarity between each predicted non-PKS compound and the target product and sorts predicted compounds based on their similarity scores in descending order.
-
-        The function returns the SMILES string of the most similar non-PKS compound and its corresponding similarity score.
-
-        Parameters:
-        ----------
-
-        Returns:
-        ----------
-        - tuple: A tuple containing two elements:
-            1. str: The SMILES string of the non-PKS compound that is closest to the target product.
-            2. float: The similarity score of this compound to the target product.
-
-        Notes:
-        ----------
-        - The function assumes `non_pks_compounds_df` and `target_smiles` are properly set attributes of the instance.
-        - The `_calculate_similarity` method of the instance is used for computing similarity scores.
-        """
-        # extract out predicted compounds and their SMILES strings from pickaxe expansion
-        predicted_cpds_df = self.non_pks_compounds_df[self.non_pks_compounds_df["Type"] == "Predicted"]
-        predicted_cpds_smiles = list(predicted_cpds_df['SMILES'])
-
-        print('\nCalculating chemical similarities between all non-PKS products and final target product')
-
-        # initialize an empty list to calculate the structural similarity score of each biological pickaxe product
-        # with respect to the final, downstream target molecule
-        sim_scores = []
-
-        for cpd in predicted_cpds_smiles:
-            sim_scores.append(self._calculate_similarity(smiles1 = cpd,
-                                                         smiles2 = self.target_smiles,
-                                                         metric = self.non_pks_similarity_metric))
-
-        sim_df = pd.DataFrame({'SMILES': predicted_cpds_smiles,
-                              'Similarity': sim_scores}).sort_values(by = 'Similarity', ascending = False)
-
-        best_non_pks_product = sim_df.iloc[0, :]['SMILES']
-        best_sim_score = sim_df.iloc[0, :]['Similarity']
-
-        return best_non_pks_product, best_sim_score
 
     def calculate_non_pks_pathway_feasibilities(self) -> None:
 
@@ -1629,7 +1192,7 @@ class biosynth_pipeline:
 
                 self.results_logs.append(results_entry)  # store the successful PKS design
 
-            # if the target product has not been reached with PKSs, we all PKS designs from Retrotide
+            # if the target product has not been reached with PKSs, we all PKS designs from RetroTide
             else:
                 for i in range(0, len(self.pks_designs[-1])):
 
@@ -1652,7 +1215,7 @@ class biosynth_pipeline:
 
         if self.pathway_sequence == ['pks','bio']:
 
-            ### Run PKS synthesis first by calling on Retrotide
+            ### Run PKS synthesis first by calling on RetroTide
             self.run_pks_synthesis()
 
             # considering only the best PKS design, compute chemical similarity between the top pks product and the target
@@ -1673,11 +1236,15 @@ class biosynth_pipeline:
                 if self.stopping_criteria == 'first_product_formation':
                     return
 
-            # If target is not reached with PKS, run pickaxe on this top PKS product for user-specified number of steps
+            # if target is not reached with PKS, run DORAnet on this top PKS product for user-specified number of steps
             print(f'\nMoving onto non-PKS modifications...')
-            self.run_biology(precursor_smiles = self.pks_top_final_product, target_name = self.target_name,
-                             target_smiles = self.target_smiles, direction = 'forward',
-                             num_generations = self.non_pks_steps, PKS_design_number = 0)
+            self.run_biology(precursor_smiles = self.pks_top_final_product,
+                             target_name = self.target_name,
+                             target_smiles = self.target_smiles,
+                             max_atoms = self.bio_max_atoms,
+                             direction = 'forward',
+                             num_generations = self.non_pks_steps,
+                             PKS_design_number = 0)
 
             ## If pathways between the top PKS product and final target are found, then the user's job is complete
             if self.pathways_found:
@@ -1705,7 +1272,7 @@ class biosynth_pipeline:
                                  'pks_design': self.pks_designs[-1][0][0].modules,
                                  'pks_product': self.pks_top_final_product,
                                  'pks_product_similarity': top_pks_product_sim_score,
-                                 'non_pks_product': list(self.ranked_metabolites.keys())[0],
+                                 'non_pks_product': list(self.ranked_metabolites.keys())[0], # store non-PKS product that is most similar to target
                                  'non_pks_product_similarity': self.ranked_metabolites[list(self.ranked_metabolites.keys())[0]]}
 
                 self.results_logs.append(results_entry)
@@ -1752,25 +1319,30 @@ class biosynth_pipeline:
 
                         # calculate chemical similarity between this current PKS product and the final target product
                         current_pks_product_sim_score = self._calculate_similarity(smiles1 = current_pks_product,
-                                                                                  smiles2 = self.target_smiles,
-                                                                                  metric = self.non_pks_similarity_metric)
+                                                                                   smiles2 = self.target_smiles,
+                                                                                   metric = self.non_pks_similarity_metric)
 
-                        # run pickaxe with this current PKS product
-                        # self.run_pickaxe(precursor_smiles = current_pks_product)
-                        self.run_biology(precursor_smiles = current_pks_product, target_name = self.target_name,
-                        target_smiles = self.target_smiles, direction = 'forward',
-                        num_generations = self.non_pks_steps, PKS_design_number = unique_PKS_design_count)
+                        # run DORAnet with this current PKS product
+                        self.run_biology(precursor_smiles = current_pks_product,
+                                         target_name = self.target_name,
+                                         target_smiles = self.target_smiles,
+                                         max_atoms = self.bio_max_atoms,
+                                         direction = 'forward',
+                                         num_generations = self.non_pks_steps,
+                                         PKS_design_number = unique_PKS_design_count)
 
-                        # extract closest non-PKS product score
+                        # extract closest non-PKS product to the target and calculate its similarity score
                         current_non_pks_product = list(self.ranked_metabolites.keys())[0]
                         current_non_PKS_sim_score = self.ranked_metabolites[current_non_pks_product]
 
-                        # if enzymatic pathways are found between this PKS product and the final target
-                        # then the synthesis process can be terminated here
+                        # if enzymatic pathways are found between this PKS product and the final target,...
+                        # ... then the synthesis process can be terminated here
                         if self.non_pks_pathways:
                             print(f"\nPathways found with non-PKS enzymes in {self.non_pks_steps} step/s "
-                                  f"using unique PKS design #{unique_PKS_design_count} out of all Retrotide designs !!!")
+                                  f"using unique PKS design #{unique_PKS_design_count} out of all RetroTide designs !!!")
+
                             current_non_PKS_sim_score = 1.0
+
                             self.calculate_non_pks_pathway_feasibilities()
 
                             # record and track the relevant similarity scores as well as PKS and non-PKS products
@@ -1793,7 +1365,7 @@ class biosynth_pipeline:
                         else:
 
                             print(f"\nNo pathways found with non-PKS enzymes in {self.non_pks_steps} step/s "
-                                  f"using unique PKS design #{unique_PKS_design_count} out of all Retrotide designs. "
+                                  f"using unique PKS design #{unique_PKS_design_count} out of all RetroTide designs. "
                                   f"Moving onto the next unique PKS design")
 
                             results_entry = {'pks_design_num': all_PKS_design_count,
@@ -1805,149 +1377,8 @@ class biosynth_pipeline:
 
                             self.results_logs.append(results_entry)
 
-    def run_non_pks_synthesis_retro(self,pks_release_mechanism):
-        """
-        Use Pickaxe to perform a retro-expansion on the final, downstream target molecule to generate upstream precursors
-        See if any PKS designs can synthesize these upstream precursors
-        :return:
-        """
-        print(f"\nStarting a reverse pickaxe expansion on the final, downstream target {self.target_smiles}")
-        print('')
-
-        downstream_target_smiles = pickaxe_utils.canonicalize_smiles(self.target_smiles)
-
-        # write starting compound (PKS product) to a tsv file
-        precursor_filepath = pickaxe_utils.write_cpds_to_tsv(cpd_name = downstream_target_smiles,
-                                                             cpd_smi = downstream_target_smiles,
-                                                             input_cpd_dir = self.input_cpd_dir)
-
-        # initialize a Pickaxe object
-        pk = Pickaxe(coreactant_list=self.non_pks_cofactors, rule_list=self.rule_filepath)
-
-        # load starting compound (PKS product) and target compound (expected Pickaxe product) into Pickaxe
-        pk.load_compound_set(compound_file=precursor_filepath)
-
-        ## incorporate filters into pickaxe
-
-        if self.non_pks_sim_score_filter is True:
-            # Similarity filter
-            sample_fingerprint_method = "Morgan"
-            cutoff_fingerprint_method = "Morgan"
-            cutoff_fingerprint_args = {"radius": 2}
-            cutoff_similarity_method = "Tanimoto"
-
-            crit_similarity = taniFilter = SimilarityFilter(
-                crit_similarity=self.non_pks_sim_score_cutoffs,
-                increasing_similarity=False,  # i.e metabolites don't have to strictly increase in similarity
-                fingerprint_method=sample_fingerprint_method,
-                fingerprint_args=cutoff_fingerprint_args,
-                similarity_method=cutoff_similarity_method)
-
-            pk.filters.append(crit_similarity)
-
-        if self.non_pks_sim_sample is True:
-            # Similarity sampling filter
-            sample_size = self.non_pks_sim_sample_size
-            sample_fingerprint_method = "Morgan"
-            sample_fingerprint_args = {"radius": 2}
-            sample_similarity_method = "Tanimoto"
-
-            taniSampleFilter = SimilaritySamplingFilter(
-                sample_size=sample_size,
-                weight=weight,
-                fingerprint_method=sample_fingerprint_method,
-                fingerprint_args=sample_fingerprint_args,
-                similarity_method=sample_similarity_method)
-            pk.filters.append(taniSampleFilter)
-
-        # run Pickaxe
-        pk.transform_all(processes=self.non_pks_cores, generations=self.non_pks_steps)
-        pk.assign_ids()
-
-        # create a dataframe of compounds generated by Pickaxe
-        compounds_df = pickaxe_utils.create_compounds_df(pk)
-
-        # extract non-PKS reactions from Pickaxe object
-        pk_rxn_keys = [key for key in pk.reactions.keys()]
-
-        all_pk_rxn_ids = [pk.reactions[key]['ID'] for key in pk_rxn_keys]
-        all_rxn_strs_in_cpd_ids = [pk.reactions[key]['ID_rxn'] for key in pk_rxn_keys]
-        all_rxn_strs_in_SMILES = [pk.reactions[key]['SMILES_rxn'] for key in pk_rxn_keys]
-        all_rxn_rules = [list(pk.reactions[key]['Operators']) for key in pk_rxn_keys]
-
-        upstream_precursors = list(compounds_df[compounds_df['Type'] == 'Predicted']["SMILES"])
-
-        print(f'\nThere are {len(upstream_precursors)} precursors (located by enzymatic reactions upstream) of the final target molecule')
-        print('\n----------------------------------------------------------')
-
-        desired_upstream_precursors = []
-
-        for upstream_precursor_smiles in upstream_precursors:
-
-            # if the upstream precursor has a carboxylic acid group
-            if has_carboxylic_acid(Chem.MolFromSmiles(upstream_precursor_smiles)):
-                print(f'\n Detected a carboxylic acid group in this upstream precusor {upstream_precursor_smiles}')
-
-                # doubly reduce the acid group on this precursor first
-                # the double_reduce function returns a mol object
-                reduced_intermediate_mol = double_reduce(Chem.MolFromSmiles(upstream_precursor_smiles))
-                reduced_intermediate_smi = Chem.MolToSmiles(reduced_intermediate_mol)
-                print(f'\n Doubly reducing this acid group gives: {reduced_intermediate_smi}')
-                print(f'Checking if feeding {reduced_intermediate_smi} as a precursor to RetroTide can give the upstream precursor {upstream_precursor_smiles}:')
-
-                designs = retrotide.designPKS((Chem.MolFromSmiles(reduced_intermediate_smi)))
-                top_design = designs[-1][0][0]
-                bound_product_mol_object = top_design.computeProduct(retrotide.structureDB)
-
-                if pks_release_mechanism == 'thiolysis':
-                    ## Run detachment reaction via a decarboxylation
-                    Chem.SanitizeMol(bound_product_mol_object)
-                    rxn = AllChem.ReactionFromSmarts('[C:1](=[O:2])[S:3]>>[C:1](=[O:2])[O].[S:3]')
-                    product = rxn.RunReactants((bound_product_mol_object,))[0][0]
-                    Chem.SanitizeMol(product)
-                    pks_product = Chem.MolToSmiles(product)
-                    print(f'\n This PKS product is {pks_product}')
-
-                    mol = Chem.MolFromSmiles(pks_product)
-                    Chem.RemoveStereochemistry(mol)
-                    pks_product = Chem.MolToSmiles(mol)
-                    print(f'\n After removing stereochemistry, the PKS product is {pks_product}')
-
-                    if pks_product == upstream_precursor_smiles:
-                        print('\nThus, this upstream precursor can be synthesized with PKSs !!!')
-
-            else:
-                print(f'\nRunning PKS retrosynthesis on {upstream_precursor_smiles}')
-
-
-                designs = retrotide.designPKS(Chem.MolFromSmiles(upstream_precursor_smiles))
-                top_design = designs[-1][0][0]
-                bound_product_mol_object = top_design.computeProduct(retrotide.structureDB)
-
-                if pks_release_mechanism == 'thiolysis':
-                    ## Run detachment reaction via a decarboxylation
-                    Chem.SanitizeMol(bound_product_mol_object)
-                    rxn = AllChem.ReactionFromSmarts('[C:1](=[O:2])[S:3]>>[C:1](=[O:2])[O].[S:3]')
-                    product = rxn.RunReactants((bound_product_mol_object,))[0][0]
-                    Chem.SanitizeMol(product)
-                    pks_top_final_product = Chem.MolToSmiles(product)
-
-                    print(f"The PKS product is {pks_top_final_product}")
-
-                else:
-                    pks_top_final_product = None
-
-                mol = Chem.MolFromSmiles(pks_top_final_product)
-                Chem.RemoveStereochemistry(mol)
-                pks_top_final_product_no_stereo = Chem.MolToSmiles(mol)
-
-                if pks_top_final_product_no_stereo == upstream_precursor_smiles:
-                    print('\nPKSs can be used to make this upstream precursor')
-
-            print('\n----------------------------------------------------------')
-
     def save_results_logs(self):
-        os.makedirs(dir_path + f'../data/results_logs/', exist_ok=True)
+        os.makedirs(dir_path + f'../data/results_logs/', exist_ok = True)
 
         # if only PKSs are used, then the top PKS product indicates if the final target has been reached or not
         if self.pathway_sequence == ['pks']:
@@ -1969,6 +1400,7 @@ class biosynth_pipeline:
         if self.pathway_sequence == ['pks', 'bio']:
             output_filepath = dir_path + self.config_dict['results_dir'] + f'/{self.target_name}_PKS_BIO{self.non_pks_steps}.txt'
             output_config_filepath = dir_path + self.config_dict['results_dir'] + f'/{self.target_name}_PKS_BIO{self.non_pks_steps}_config.json'
+
             with open(output_config_filepath, 'w') as file:
                 json.dump(self.config_dict, file)
             with open(output_filepath,'w') as file:
@@ -1993,7 +1425,7 @@ class biosynth_pipeline:
                                                       key=lambda x: float(x['net feasibility']),
                                                       reverse=True)
 
-                        # sort the pathways in descending order of their net feasibilitie
+                        # sort the pathways in descending order of their net feasibility scores
                         for i, pathway in enumerate(sorted_pathways_list):
                             file.write(f"\n  Pathway #{f'{i}'}:")
                             pickaxe_rxn_strs = pathway['reactions (SMILES)']

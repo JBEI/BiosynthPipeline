@@ -1,0 +1,941 @@
+
+PKS design number: 0
+PKS design:
+    ["AT{'substrate': 'Malonyl-CoA'}", 'loading: True']
+    ["AT{'substrate': 'Hydroxymalonyl-CoA'}", "KR{'type': 'B1'}", 'loading: False']
+PKS product: C[C@@H](O)[C@@H](O)C(=O)O
+PKS product similarity: 0.625
+Bio product: CC(O)CO
+Bio product similarity: 1.0
+Bio pathways:
+  Pathway #139:
+    CC(O)C(O)C(=O)O + O=O = CC(O)C(=O)O + O + O=C=O
+    CC(O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)CO + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    reaction feasibilities: ['0.753', '0.944']
+    net feasibility: 0.711
+    reaction rules: ['rule0352_2', 'rule0164_2']
+  Pathway #55:
+    CC(O)C(O)C(=O)O + C[S+](CCC(N)C(=O)O)CC1OC(n2cnc3c(N)ncnc32)C(O)C1O = COC(=O)C(O)C(C)O + Nc1ncnc2c1ncn2C1OC(CSCCC(N)C(=O)O)C(O)C1O
+    COC(=O)C(O)C(C)O + O = COC(=O)O + CC(O)CO
+    reaction feasibilities: ['0.817', '0.551']
+    net feasibility: 0.450
+    reaction rules: ['rule0011_48', 'rule0085_2']
+  Pathway #45:
+    CC(O)C(O)C(=O)O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)OC3OC(CO)C(O)C(O)C3O)C(O)C2O)c(=O)[nH]1 = CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)O)C(O)C2O)c(=O)[nH]1
+    CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + O = O=C(O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + CC(O)CO
+    reaction feasibilities: ['0.947', '0.475']
+    net feasibility: 0.450
+    reaction rules: ['rule0009_39', 'rule0085_2']
+  Pathway #123:
+    CC(O)C(O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)CO + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    CC(O)C(O)CO = C=O + CC(O)CO
+    reaction feasibilities: ['0.948', '0.160']
+    net feasibility: 0.152
+    reaction rules: ['rule0164_2', 'rule0053_20']
+  Pathway #99:
+    CC(O)C(O)C(=O)O = O=CO + CC(O)C=O
+    CC(O)C=O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)CO + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1
+    reaction feasibilities: ['0.142', '0.999']
+    net feasibility: 0.142
+    reaction rules: ['rule0053_17', 'rule0003_161']
+  Pathway #61:
+    CC(O)C(O)C(=O)O = CC(O)CO + O=C=O
+    reaction feasibilities: ['0.086']
+    net feasibility: 0.086
+    reaction rules: ['rule0053_19;rule0024_52']
+  Pathway #145:
+    CC(O)C(O)C(=O)O + C#N = CC(O)C(O)C(O)(O)C#N
+    CC(O)C(O)C(O)(O)C#N = CC(O)CO + N#CC(=O)O
+    reaction feasibilities: ['0.331', '0.203']
+    net feasibility: 0.067
+    reaction rules: ['rule0393_6', 'rule0053_20']
+  Pathway #105:
+    CC(O)C(O)C(=O)O + N + Nc1ncnc2c1ncn2C1OC(COP(=O)(O)OP(=O)(O)OP(=O)(O)O)C(O)C1O = CC(O)C(O)C(N)=O + Nc1ncnc2c1ncn2C1OC(COP(=O)(O)O)C(O)C1O + O=P(O)(O)OP(=O)(O)O
+    CC(O)C(O)C(N)=O + O = NC(=O)O + CC(O)CO
+    reaction feasibilities: ['0.302', '0.220']
+    net feasibility: 0.067
+    reaction rules: ['rule0386_2', 'rule0085_2']
+  Pathway #101:
+    CC(O)C(O)C(=O)O + N = CC(O)C(O)C(N)=O + O
+    CC(O)C(O)C(N)=O + O = NC(=O)O + CC(O)CO
+    reaction feasibilities: ['0.249', '0.220']
+    net feasibility: 0.055
+    reaction rules: ['rule0055_2', 'rule0085_2']
+  Pathway #7:
+    CC(O)C(O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)C(O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1
+    CC(O)C(O)C(O)O = O=CO + CC(O)CO
+    reaction feasibilities: ['0.391', '0.062']
+    net feasibility: 0.024
+    reaction rules: ['rule0003_154;rule0003_155', 'rule0053_20']
+  Pathway #65:
+    CC(O)C(O)C(=O)O = O=C(O)CC(O)CO
+    O=C(O)CC(O)CO = CC(O)CO + O=C=O
+    reaction feasibilities: ['0.053', '0.431']
+    net feasibility: 0.023
+    reaction rules: ['rule0028_50', 'rule0024_52']
+  Pathway #59:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = O=C(O)CC(O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.017']
+    net feasibility: 0.017
+    reaction rules: ['rule0126_2']
+  Pathway #24:
+    CC(O)C(O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)C=O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    CC(O)C(O)C=O + O = O=CO + CC(O)CO
+    reaction feasibilities: ['0.024', '0.682']
+    net feasibility: 0.016
+    reaction rules: ['rule0025_31;rule0025_34', 'rule0085_2']
+  Pathway #108:
+    CC(O)C(O)C(=O)O + N + Nc1ncnc2c1ncn2C1OC(COP(=O)(O)OP(=O)(O)OP(=O)(O)O)C(O)C1O = CC(O)C(O)C(N)=O + Nc1ncnc2c1ncn2C1OC(COP(=O)(O)O)C(O)C1O + O=P(O)(O)OP(=O)(O)O
+    CC(O)C(O)C(N)=O + CC(O)C(O)C(N)=O = CC(O)CO + NC(=O)CC(O)C(O)C(N)=O
+    reaction feasibilities: ['0.302', '0.049']
+    net feasibility: 0.015
+    reaction rules: ['rule0386_2', 'rule0126_2']
+  Pathway #104:
+    CC(O)C(O)C(=O)O + N = CC(O)C(O)C(N)=O + O
+    CC(O)C(O)C(N)=O + CC(O)C(O)C(N)=O = CC(O)CO + NC(=O)CC(O)C(O)C(N)=O
+    reaction feasibilities: ['0.249', '0.049']
+    net feasibility: 0.012
+    reaction rules: ['rule0055_2', 'rule0126_2']
+  Pathway #125:
+    CC(O)C(O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)CO + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    CC(O)C(O)CO + CC(O)C(O)CO = CC(O)CO + CC(O)C(O)C(O)CO
+    reaction feasibilities: ['0.948', '0.012']
+    net feasibility: 0.012
+    reaction rules: ['rule0164_2', 'rule0126_2']
+  Pathway #106:
+    CC(O)C(O)C(=O)O + N + Nc1ncnc2c1ncn2C1OC(COP(=O)(O)OP(=O)(O)OP(=O)(O)O)C(O)C1O = CC(O)C(O)C(N)=O + Nc1ncnc2c1ncn2C1OC(COP(=O)(O)O)C(O)C1O + O=P(O)(O)OP(=O)(O)O
+    CC(O)C(O)C(N)=O + CC(O)C(O)C(N)=O = CC(O)CO + CC(O)C(O)(C(N)=O)C(N)=O
+    reaction feasibilities: ['0.302', '0.035']
+    net feasibility: 0.011
+    reaction rules: ['rule0386_2', 'rule0126_2']
+  Pathway #102:
+    CC(O)C(O)C(=O)O + N = CC(O)C(O)C(N)=O + O
+    CC(O)C(O)C(N)=O + CC(O)C(O)C(N)=O = CC(O)CO + CC(O)C(O)(C(N)=O)C(N)=O
+    reaction feasibilities: ['0.249', '0.035']
+    net feasibility: 0.009
+    reaction rules: ['rule0055_2', 'rule0126_2']
+  Pathway #60:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)CO + CC(O)(C(=O)O)C(O)C(=O)O
+    reaction feasibilities: ['0.008']
+    net feasibility: 0.008
+    reaction rules: ['rule0126_1']
+  Pathway #82:
+    CC(O)C(O)C(=O)O + N[C@@H](CCC(=O)O)C(=O)O = CC(O)C(O)C(N)O + O=C(O)CCC(=O)C(=O)O
+    CC(O)C(O)C(N)O + CC(O)C(O)C(N)O = CC(O)C(O)C(N)(O)C(N)O + CC(O)CO
+    reaction feasibilities: ['0.781', '0.010']
+    net feasibility: 0.008
+    reaction rules: ['rule0031_6', 'rule0126_2']
+  Pathway #134:
+    CC(O)C(O)C(=O)O + N = CC(O)C(O)C#N + O + O
+    CC(O)C(O)C#N + CC(O)C(O)C#N = CC(O)CO + N#CCC(O)C(O)C#N
+    reaction feasibilities: ['0.788', '0.009']
+    net feasibility: 0.007
+    reaction rules: ['rule0242_3', 'rule0126_2']
+  Pathway #78:
+    CC(O)C(O)C(=O)O + N[C@@H](CCC(=O)O)C(=O)O = CC(O)C(O)C(N)O + O=C(O)CCC(=O)C(=O)O
+    CC(O)C(O)C(N)O = NC=O + CC(O)CO
+    reaction feasibilities: ['0.781', '0.009']
+    net feasibility: 0.007
+    reaction rules: ['rule0031_6', 'rule0053_20']
+  Pathway #56:
+    CC(O)C(O)C(=O)O + C[S+](CCC(N)C(=O)O)CC1OC(n2cnc3c(N)ncnc32)C(O)C1O = COC(=O)C(O)C(C)O + Nc1ncnc2c1ncn2C1OC(CSCCC(N)C(=O)O)C(O)C1O
+    COC(=O)C(O)C(C)O + COC(=O)C(O)C(C)O = CC(O)CO + COC(=O)CC(O)C(O)C(=O)OC
+    reaction feasibilities: ['0.817', '0.009']
+    net feasibility: 0.007
+    reaction rules: ['rule0011_48', 'rule0126_2']
+  Pathway #130:
+    CC(O)C(O)C(=O)O + Cl = CC(O)C(O)C(=O)Cl + O
+    CC(O)C(O)C(=O)Cl + O = CC(O)CO + O=C(O)Cl
+    reaction feasibilities: ['0.029', '0.235']
+    net feasibility: 0.007
+    reaction rules: ['rule0183_6', 'rule0085_2']
+  Pathway #79:
+    CC(O)C(O)C(=O)O + N[C@@H](CCC(=O)O)C(=O)O = CC(O)C(O)C(N)O + O=C(O)CCC(=O)C(=O)O
+    CC(O)C(O)C(N)O + CC(O)C(O)C(N)O = CC(O)CO + CC(O)C(O)(C(N)O)C(N)O
+    reaction feasibilities: ['0.781', '0.007']
+    net feasibility: 0.005
+    reaction rules: ['rule0031_6', 'rule0126_2']
+  Pathway #107:
+    CC(O)C(O)C(=O)O + N + Nc1ncnc2c1ncn2C1OC(COP(=O)(O)OP(=O)(O)OP(=O)(O)O)C(O)C1O = CC(O)C(O)C(N)=O + Nc1ncnc2c1ncn2C1OC(COP(=O)(O)O)C(O)C1O + O=P(O)(O)OP(=O)(O)O
+    CC(O)C(O)C(N)=O + CC(O)C(O)C(N)=O = CC(O)(C(N)=O)C(O)C(N)=O + CC(O)CO
+    reaction feasibilities: ['0.302', '0.015']
+    net feasibility: 0.005
+    reaction rules: ['rule0386_2', 'rule0126_2']
+  Pathway #100:
+    CC(O)C(O)C(=O)O = O=CO + CC(O)C=O
+    CC(O)C=O + CC(O)C=O = CC(=O)C=O + CC(O)CO
+    reaction feasibilities: ['0.142', '0.029']
+    net feasibility: 0.004
+    reaction rules: ['rule0053_17', 'rule0324_2']
+  Pathway #103:
+    CC(O)C(O)C(=O)O + N = CC(O)C(O)C(N)=O + O
+    CC(O)C(O)C(N)=O + CC(O)C(O)C(N)=O = CC(O)(C(N)=O)C(O)C(N)=O + CC(O)CO
+    reaction feasibilities: ['0.249', '0.015']
+    net feasibility: 0.004
+    reaction rules: ['rule0055_2', 'rule0126_2']
+  Pathway #81:
+    CC(O)C(O)C(=O)O + N[C@@H](CCC(=O)O)C(=O)O = CC(O)C(O)C(N)O + O=C(O)CCC(=O)C(=O)O
+    CC(O)C(O)C(N)O + CC(O)C(O)C(N)O = CC(O)(C(N)O)C(O)C(N)O + CC(O)CO
+    reaction feasibilities: ['0.781', '0.004']
+    net feasibility: 0.003
+    reaction rules: ['rule0031_6', 'rule0126_2']
+  Pathway #138:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)C(O)C(C)O + O=C=O
+    CC(O)C(O)C(O)(O)C(O)C(C)O = CC(O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.007', '0.495']
+    net feasibility: 0.003
+    reaction rules: ['rule0273_4', 'rule0053_20']
+  Pathway #62:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)(C(=O)O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.003']
+    net feasibility: 0.003
+    reaction rules: ['rule0126_2']
+  Pathway #58:
+    CC(O)C(O)C(=O)O + O = CC(O)CO + O=C(O)O
+    reaction feasibilities: ['0.003']
+    net feasibility: 0.003
+    reaction rules: ['rule0085_2']
+  Pathway #66:
+    CC(O)C(O)C(=O)O = O=C(O)CC(O)CO
+    O=C(O)CC(O)CO + O = CC(O)CO + O=C(O)O
+    reaction feasibilities: ['0.053', '0.056']
+    net feasibility: 0.003
+    reaction rules: ['rule0028_50', 'rule0085_2']
+  Pathway #29:
+    CC(O)C(O)C(=O)O + OO = CC(O)C(O)C=O + O + O=O
+    CC(O)C(O)C=O + O = O=CO + CC(O)CO
+    reaction feasibilities: ['0.004', '0.682']
+    net feasibility: 0.002
+    reaction rules: ['rule0147_2', 'rule0085_2']
+  Pathway #132:
+    CC(O)C(O)C(=O)O + N = CC(O)C(O)C#N + O + O
+    CC(O)C(O)C#N + CC(O)C(O)C#N = CC(O)C(O)(C#N)C#N + CC(O)CO
+    reaction feasibilities: ['0.788', '0.002']
+    net feasibility: 0.002
+    reaction rules: ['rule0242_3', 'rule0126_2']
+  Pathway #52:
+    CC(O)C(O)C(=O)O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)OC3OC(CO)C(O)C(O)C3O)C(O)C2O)c(=O)[nH]1 = CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)O)C(O)C2O)c(=O)[nH]1
+    CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O = O=C(CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + CC(O)CO
+    reaction feasibilities: ['0.947', '0.002']
+    net feasibility: 0.002
+    reaction rules: ['rule0009_39', 'rule0126_2']
+  Pathway #77:
+    CC(O)C(O)C(=O)O + N + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)C(N)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    CC(O)C(O)C(N)O + CC(O)C(O)C(N)O = CC(O)C(O)C(N)(O)C(N)O + CC(O)CO
+    reaction feasibilities: ['0.155', '0.010']
+    net feasibility: 0.002
+    reaction rules: ['rule0166_2', 'rule0126_2']
+  Pathway #80:
+    CC(O)C(O)C(=O)O + N[C@@H](CCC(=O)O)C(=O)O = CC(O)C(O)C(N)O + O=C(O)CCC(=O)C(=O)O
+    CC(O)C(O)C(N)O + CC(O)C(O)C(N)O = NC(O)CC(O)C(O)C(N)O + CC(O)CO
+    reaction feasibilities: ['0.781', '0.002']
+    net feasibility: 0.001
+    reaction rules: ['rule0031_6', 'rule0126_2']
+  Pathway #73:
+    CC(O)C(O)C(=O)O + N + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)C(N)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    CC(O)C(O)C(N)O = NC=O + CC(O)CO
+    reaction feasibilities: ['0.155', '0.009']
+    net feasibility: 0.001
+    reaction rules: ['rule0166_2', 'rule0053_20']
+  Pathway #96:
+    CC(O)C(O)C(=O)O + O=C=O = O=C(O)C(=O)O + CC(O)C=O
+    CC(O)C=O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)CO + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1
+    reaction feasibilities: ['0.001', '0.999']
+    net feasibility: 0.001
+    reaction rules: ['rule0274_3', 'rule0003_161']
+  Pathway #57:
+    CC(O)C(O)C(=O)O + C[S+](CCC(N)C(=O)O)CC1OC(n2cnc3c(N)ncnc32)C(O)C1O = COC(=O)C(O)C(C)O + Nc1ncnc2c1ncn2C1OC(CSCCC(N)C(=O)O)C(O)C1O
+    COC(=O)C(O)C(C)O + COC(=O)C(O)C(C)O = COC(=O)C(O)C(C)(O)C(=O)OC + CC(O)CO
+    reaction feasibilities: ['0.817', '0.002']
+    net feasibility: 0.001
+    reaction rules: ['rule0011_48', 'rule0126_1']
+  Pathway #54:
+    CC(O)C(O)C(=O)O + C[S+](CCC(N)C(=O)O)CC1OC(n2cnc3c(N)ncnc32)C(O)C1O = COC(=O)C(O)C(C)O + Nc1ncnc2c1ncn2C1OC(CSCCC(N)C(=O)O)C(O)C1O
+    COC(=O)C(O)C(C)O + COC(=O)C(O)C(C)O = COC(=O)C(O)(C(=O)OC)C(C)O + CC(O)CO
+    reaction feasibilities: ['0.817', '0.001']
+    net feasibility: 0.001
+    reaction rules: ['rule0011_48', 'rule0126_2']
+  Pathway #74:
+    CC(O)C(O)C(=O)O + N + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)C(N)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    CC(O)C(O)C(N)O + CC(O)C(O)C(N)O = CC(O)CO + CC(O)C(O)(C(N)O)C(N)O
+    reaction feasibilities: ['0.155', '0.007']
+    net feasibility: 0.001
+    reaction rules: ['rule0166_2', 'rule0126_2']
+  Pathway #9:
+    CC(O)C(O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)C(O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1
+    CC(O)C(O)C(O)O + CC(O)C(O)C(O)O = CC(O)C(O)(C(O)O)C(O)O + CC(O)CO
+    reaction feasibilities: ['0.391', '0.002']
+    net feasibility: 0.001
+    reaction rules: ['rule0003_154;rule0003_155', 'rule0126_2']
+  Pathway #147:
+    CC(O)C(O)C(=O)O + C#N = CC(O)C(O)C(O)(O)C#N
+    CC(O)C(O)C(O)(O)C#N + CC(O)C(O)C(O)(O)C#N = N#CC(O)(O)CC(O)C(O)C(O)(O)C#N + CC(O)CO
+    reaction feasibilities: ['0.331', '0.002']
+    net feasibility: 0.001
+    reaction rules: ['rule0393_6', 'rule0126_2']
+  Pathway #76:
+    CC(O)C(O)C(=O)O + N + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)C(N)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    CC(O)C(O)C(N)O + CC(O)C(O)C(N)O = CC(O)(C(N)O)C(O)C(N)O + CC(O)CO
+    reaction feasibilities: ['0.155', '0.004']
+    net feasibility: 0.001
+    reaction rules: ['rule0166_2', 'rule0126_2']
+  Pathway #148:
+    CC(O)C(O)C(=O)O + C#N = CC(O)C(O)C(O)(O)C#N
+    CC(O)C(O)C(O)(O)C#N + CC(O)C(O)C(O)(O)C#N = CC(O)C(O)(C(O)(O)C#N)C(O)(O)C#N + CC(O)CO
+    reaction feasibilities: ['0.331', '0.002']
+    net feasibility: 0.001
+    reaction rules: ['rule0393_6', 'rule0126_2']
+  Pathway #6:
+    CC(O)C(O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)C(O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1
+    CC(O)C(O)C(O)O + CC(O)C(O)C(O)O = CC(O)C(O)C(O)(O)C(O)O + CC(O)CO
+    reaction feasibilities: ['0.391', '0.002']
+    net feasibility: 0.001
+    reaction rules: ['rule0003_154;rule0003_155', 'rule0126_2']
+  Pathway #8:
+    CC(O)C(O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)C(O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1
+    CC(O)C(O)C(O)O + CC(O)C(O)C(O)O = CC(O)CO + CC(O)(C(O)O)C(O)C(O)O
+    reaction feasibilities: ['0.391', '0.002']
+    net feasibility: 0.001
+    reaction rules: ['rule0003_154;rule0003_155', 'rule0126_2']
+  Pathway #128:
+    CC(O)C(O)C(=O)O + Cl = CC(O)C(O)C(=O)Cl + O
+    CC(O)C(O)C(=O)Cl + CC(O)C(O)C(=O)Cl = CC(O)CO + CC(O)C(O)(C(=O)Cl)C(=O)Cl
+    reaction feasibilities: ['0.029', '0.021']
+    net feasibility: 0.001
+    reaction rules: ['rule0183_6', 'rule0126_2']
+  Pathway #124:
+    CC(O)C(O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)CO + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    CC(O)C(O)CO + CC(O)C(O)CO = OCCC(O)C(O)CO + CC(O)CO
+    reaction feasibilities: ['0.948', '0.001']
+    net feasibility: 0.001
+    reaction rules: ['rule0164_2', 'rule0126_2']
+  Pathway #146:
+    CC(O)C(O)C(=O)O + C#N = CC(O)C(O)C(O)(O)C#N
+    CC(O)C(O)C(O)(O)C#N + CC(O)C(O)C(O)(O)C#N = CC(O)(C(O)C(O)(O)C#N)C(O)(O)C#N + CC(O)CO
+    reaction feasibilities: ['0.331', '0.002']
+    net feasibility: 0.001
+    reaction rules: ['rule0393_6', 'rule0126_2']
+  Pathway #127:
+    CC(O)C(O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)CO + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    CC(O)C(O)CO + CC(O)C(O)CO = CC(O)CO + CC(O)(CO)C(O)CO
+    reaction feasibilities: ['0.948', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0164_2', 'rule0126_2']
+  Pathway #53:
+    CC(O)C(O)C(=O)O + C[S+](CCC(N)C(=O)O)CC1OC(n2cnc3c(N)ncnc32)C(O)C1O = COC(=O)C(O)C(C)O + Nc1ncnc2c1ncn2C1OC(CSCCC(N)C(=O)O)C(O)C1O
+    COC(=O)C(O)C(C)O + COC(=O)C(O)C(C)O = CC(O)CO + COC(=O)COC(=O)C(O)C(C)O
+    reaction feasibilities: ['0.817', '0.001']
+    net feasibility: 0.000
+    reaction rules: ['rule0011_48', 'rule0126_2']
+  Pathway #10:
+    CC(O)C(O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)C(O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1
+    CC(O)C(O)C(O)O + CC(O)C(O)C(O)O = CC(O)CO + OC(O)CC(O)C(O)C(O)O
+    reaction feasibilities: ['0.391', '0.001']
+    net feasibility: 0.000
+    reaction rules: ['rule0003_154;rule0003_155', 'rule0126_2']
+  Pathway #75:
+    CC(O)C(O)C(=O)O + N + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)C(N)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    CC(O)C(O)C(N)O + CC(O)C(O)C(N)O = NC(O)CC(O)C(O)C(N)O + CC(O)CO
+    reaction feasibilities: ['0.155', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0166_2', 'rule0126_2']
+  Pathway #51:
+    CC(O)C(O)C(=O)O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)OC3OC(CO)C(O)C(O)C3O)C(O)C2O)c(=O)[nH]1 = CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)O)C(O)C2O)c(=O)[nH]1
+    CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O = CC(O)(C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + CC(O)CO
+    reaction feasibilities: ['0.947', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0009_39', 'rule0126_1']
+  Pathway #44:
+    CC(O)C(O)C(=O)O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)OC3OC(CO)C(O)C(O)C3O)C(O)C2O)c(=O)[nH]1 = CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)O)C(O)C2O)c(=O)[nH]1
+    CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O = CC(O)C(O)(C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + CC(O)CO
+    reaction feasibilities: ['0.947', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0009_39', 'rule0126_2']
+  Pathway #17:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(=O)C(=O)O + CC(O)C(O)C(O)O
+    CC(O)C(O)C(O)O = O=CO + CC(O)CO
+    reaction feasibilities: ['0.005', '0.062']
+    net feasibility: 0.000
+    reaction rules: ['rule0324_1', 'rule0053_20']
+  Pathway #126:
+    CC(O)C(O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)CO + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    CC(O)C(O)CO + CC(O)C(O)CO = CC(O)CO + CC(O)C(O)(CO)CO
+    reaction feasibilities: ['0.948', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0164_2', 'rule0126_2']
+  Pathway #129:
+    CC(O)C(O)C(=O)O + Cl = CC(O)C(O)C(=O)Cl + O
+    CC(O)C(O)C(=O)Cl + CC(O)C(O)C(=O)Cl = CC(O)CO + CC(O)(C(=O)Cl)C(O)C(=O)Cl
+    reaction feasibilities: ['0.029', '0.008']
+    net feasibility: 0.000
+    reaction rules: ['rule0183_6', 'rule0126_2']
+  Pathway #67:
+    CC(O)C(O)C(=O)O = O=C(O)CC(O)CO
+    O=C(O)CC(O)CO + O=C(O)CC(O)CO = O=C(O)CC(O)(CO)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.053', '0.004']
+    net feasibility: 0.000
+    reaction rules: ['rule0028_50', 'rule0126_1']
+  Pathway #133:
+    CC(O)C(O)C(=O)O + N = CC(O)C(O)C#N + O + O
+    CC(O)C(O)C#N + CC(O)C(O)C#N = CC(O)CO + CC(O)(C#N)C(O)C#N
+    reaction feasibilities: ['0.788', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0242_3', 'rule0126_2']
+  Pathway #63:
+    CC(O)C(O)C(=O)O = O=C(O)CC(O)CO
+    O=C(O)CC(O)CO + O=C(O)CC(O)CO = O=C(O)CC(O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.053', '0.003']
+    net feasibility: 0.000
+    reaction rules: ['rule0028_50', 'rule0126_2']
+  Pathway #131:
+    CC(O)C(O)C(=O)O + Cl = CC(O)C(O)C(=O)Cl + O
+    CC(O)C(O)C(=O)Cl + CC(O)C(O)C(=O)Cl = CC(O)CO + O=C(Cl)CC(O)C(O)C(=O)Cl
+    reaction feasibilities: ['0.029', '0.005']
+    net feasibility: 0.000
+    reaction rules: ['rule0183_6', 'rule0126_2']
+  Pathway #43:
+    CC(O)C(O)C(=O)O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)OC3OC(CO)C(O)C(O)C3O)C(O)C2O)c(=O)[nH]1 = CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)O)C(O)C2O)c(=O)[nH]1
+    CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O = CC(O)C(O)C(=O)O[C@]1(C(=O)O[C@H]2O[C@H](CO)[C@@H](O)[C@H](O)[C@H]2O)O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + CC(O)CO
+    reaction feasibilities: ['0.947', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0009_39', 'rule0126_2']
+  Pathway #21:
+    CC(O)C(O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)C=O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    CC(O)C(O)C=O + CC(O)C(O)C=O = CC(O)CO + CC(O)C(O)(C=O)C=O
+    reaction feasibilities: ['0.024', '0.003']
+    net feasibility: 0.000
+    reaction rules: ['rule0025_31;rule0025_34', 'rule0126_2']
+  Pathway #25:
+    CC(O)C(O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)C=O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    CC(O)C(O)C=O + CC(O)C(O)C=O = CC(O)(C=O)C(O)C=O + CC(O)CO
+    reaction feasibilities: ['0.024', '0.003']
+    net feasibility: 0.000
+    reaction rules: ['rule0025_31;rule0025_34', 'rule0126_2']
+  Pathway #49:
+    CC(O)C(O)C(=O)O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)OC3OC(CO)C(O)C(O)C3O)C(O)C2O)c(=O)[nH]1 = CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)O)C(O)C2O)c(=O)[nH]1
+    CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O = CC(O)C(O)C(=O)O[C@H]1O[C@](CO)(C(=O)O[C@H]2O[C@H](CO)[C@@H](O)[C@H](O)[C@H]2O)[C@@H](O)[C@H](O)[C@H]1O + CC(O)CO
+    reaction feasibilities: ['0.947', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0009_39', 'rule0126_2']
+  Pathway #39:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(=O)OC(C)C(O)C(=O)O + O
+    CC(O)C(O)C(=O)OC(C)C(O)C(=O)O + O = CC(OC(=O)O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.046']
+    net feasibility: 0.000
+    reaction rules: ['rule0001_87;rule0006_162', 'rule0085_2']
+  Pathway #22:
+    CC(O)C(O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)C=O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    CC(O)C(O)C=O + CC(O)C(O)C=O = CC(O)CO + CC(O)C(O)C(=O)C=O
+    reaction feasibilities: ['0.024', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0025_31;rule0025_34', 'rule0126_2']
+  Pathway #23:
+    CC(O)C(O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 = CC(O)C(O)C=O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O
+    CC(O)C(O)C=O + CC(O)C(O)C=O = O=CCC(O)C(O)C=O + CC(O)CO
+    reaction feasibilities: ['0.024', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0025_31;rule0025_34', 'rule0126_2']
+  Pathway #91:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O
+    CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O = O=C(O)CC(O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.028']
+    net feasibility: 0.000
+    reaction rules: ['rule0051_12', 'rule0053_20']
+  Pathway #97:
+    CC(O)C(O)C(=O)O + O=C=O = O=C(O)C(=O)O + CC(O)C=O
+    CC(O)C=O + CC(O)C=O = CC(=O)C=O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.029']
+    net feasibility: 0.000
+    reaction rules: ['rule0274_3', 'rule0324_2']
+  Pathway #46:
+    CC(O)C(O)C(=O)O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)OC3OC(CO)C(O)C(O)C3O)C(O)C2O)c(=O)[nH]1 = CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)O)C(O)C2O)c(=O)[nH]1
+    CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O = CC(O)C(O)C(=O)O[C@H]1O[C@H](C(O)C(=O)O[C@H]2O[C@H](CO)[C@@H](O)[C@H](O)[C@H]2O)[C@@H](O)[C@H](O)[C@H]1O + CC(O)CO
+    reaction feasibilities: ['0.947', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0009_39', 'rule0126_2']
+  Pathway #72:
+    CC(O)C(O)C(=O)O + OO + N = CC(O)C(O)C(N)O + O + O=O
+    CC(O)C(O)C(N)O + CC(O)C(O)C(N)O = CC(O)C(O)C(N)(O)C(N)O + CC(O)CO
+    reaction feasibilities: ['0.003', '0.010']
+    net feasibility: 0.000
+    reaction rules: ['rule0091_12', 'rule0126_2']
+  Pathway #98:
+    CC(O)C(O)C(=O)O = O=CO + CC(O)C=O
+    CC(O)C=O + OO = CC(O)CO + O=O
+    reaction feasibilities: ['0.142', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0053_17', 'rule0078_14']
+  Pathway #68:
+    CC(O)C(O)C(=O)O + OO + N = CC(O)C(O)C(N)O + O + O=O
+    CC(O)C(O)C(N)O = NC=O + CC(O)CO
+    reaction feasibilities: ['0.003', '0.009']
+    net feasibility: 0.000
+    reaction rules: ['rule0091_12', 'rule0053_20']
+  Pathway #2:
+    CC(O)C(O)C(=O)O + OO = CC(O)C(O)C(O)O + O=O
+    CC(O)C(O)C(O)O = O=CO + CC(O)CO
+    reaction feasibilities: ['0.001', '0.062']
+    net feasibility: 0.000
+    reaction rules: ['rule0078_14', 'rule0053_20']
+  Pathway #110:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = O=C(O)C(O)CC(O)C(O)C(=O)O + CCO
+    CCO + CCO = C + CC(O)CO
+    reaction feasibilities: ['0.008', '0.004']
+    net feasibility: 0.000
+    reaction rules: ['rule0126_2', 'rule0126_2']
+  Pathway #12:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(=O)C(O)C(=O)O + CC(O)C(O)C(O)O
+    CC(O)C(O)C(O)O = O=CO + CC(O)CO
+    reaction feasibilities: ['0.000', '0.062']
+    net feasibility: 0.000
+    reaction rules: ['rule0324_1', 'rule0053_20']
+  Pathway #135:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)C(O)C(C)O + O=C=O
+    CC(O)C(O)C(O)(O)C(O)C(C)O + CC(O)C(O)C(O)(O)C(O)C(C)O = CC(O)CO + CC(O)C(O)C(O)(O)C(O)(C(C)O)C(O)(O)C(O)C(C)O
+    reaction feasibilities: ['0.007', '0.004']
+    net feasibility: 0.000
+    reaction rules: ['rule0273_4', 'rule0126_2']
+  Pathway #69:
+    CC(O)C(O)C(=O)O + OO + N = CC(O)C(O)C(N)O + O + O=O
+    CC(O)C(O)C(N)O + CC(O)C(O)C(N)O = CC(O)CO + CC(O)C(O)(C(N)O)C(N)O
+    reaction feasibilities: ['0.003', '0.007']
+    net feasibility: 0.000
+    reaction rules: ['rule0091_12', 'rule0126_2']
+  Pathway #137:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)C(O)C(C)O + O=C=O
+    CC(O)C(O)C(O)(O)C(O)C(C)O + CC(O)C(O)C(O)(O)C(O)C(C)O = CC(O)C(O)C(O)(O)CC(O)C(O)C(O)(O)C(O)C(C)O + CC(O)CO
+    reaction feasibilities: ['0.007', '0.003']
+    net feasibility: 0.000
+    reaction rules: ['rule0273_4', 'rule0126_2']
+  Pathway #50:
+    CC(O)C(O)C(=O)O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)OC3OC(CO)C(O)C(O)C3O)C(O)C2O)c(=O)[nH]1 = CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)O)C(O)C2O)c(=O)[nH]1
+    CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O = CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@@]1(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + CC(O)CO
+    reaction feasibilities: ['0.947', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0009_39', 'rule0126_2']
+  Pathway #71:
+    CC(O)C(O)C(=O)O + OO + N = CC(O)C(O)C(N)O + O + O=O
+    CC(O)C(O)C(N)O + CC(O)C(O)C(N)O = CC(O)(C(N)O)C(O)C(N)O + CC(O)CO
+    reaction feasibilities: ['0.003', '0.004']
+    net feasibility: 0.000
+    reaction rules: ['rule0091_12', 'rule0126_2']
+  Pathway #48:
+    CC(O)C(O)C(=O)O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)OC3OC(CO)C(O)C(O)C3O)C(O)C2O)c(=O)[nH]1 = CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)O)C(O)C2O)c(=O)[nH]1
+    CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O = CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@](O)(C(=O)O[C@H]2O[C@H](CO)[C@@H](O)[C@H](O)[C@H]2O)[C@H]1O + CC(O)CO
+    reaction feasibilities: ['0.947', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0009_39', 'rule0126_2']
+  Pathway #64:
+    CC(O)C(O)C(=O)O = O=C(O)CC(O)CO
+    O=C(O)CC(O)CO + O=C(O)CC(O)CO = CC(O)CO + O=C(O)C(C(=O)O)C(O)CO
+    reaction feasibilities: ['0.053', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0028_50', 'rule0126_2']
+  Pathway #26:
+    CC(O)C(O)C(=O)O + OO = CC(O)C(O)C=O + O + O=O
+    CC(O)C(O)C=O + CC(O)C(O)C=O = CC(O)CO + CC(O)C(O)(C=O)C=O
+    reaction feasibilities: ['0.004', '0.003']
+    net feasibility: 0.000
+    reaction rules: ['rule0147_2', 'rule0126_2']
+  Pathway #30:
+    CC(O)C(O)C(=O)O + OO = CC(O)C(O)C=O + O + O=O
+    CC(O)C(O)C=O + CC(O)C(O)C=O = CC(O)(C=O)C(O)C=O + CC(O)CO
+    reaction feasibilities: ['0.004', '0.003']
+    net feasibility: 0.000
+    reaction rules: ['rule0147_2', 'rule0126_2']
+  Pathway #19:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(=O)C(=O)O + CC(O)C(O)C(O)O
+    CC(O)C(O)C(O)O + CC(O)C(O)C(O)O = CC(O)C(O)(C(O)O)C(O)O + CC(O)CO
+    reaction feasibilities: ['0.005', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0324_1', 'rule0126_2']
+  Pathway #93:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O
+    CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O + CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)C(C(O)C(O)C(=O)O)C(O)(O)CC(O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.007']
+    net feasibility: 0.000
+    reaction rules: ['rule0051_12', 'rule0126_2']
+  Pathway #27:
+    CC(O)C(O)C(=O)O + OO = CC(O)C(O)C=O + O + O=O
+    CC(O)C(O)C=O + CC(O)C(O)C=O = CC(O)CO + CC(O)C(O)C(=O)C=O
+    reaction feasibilities: ['0.004', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0147_2', 'rule0126_2']
+  Pathway #89:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O
+    CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O + CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O = CC(O)(C(O)C(O)(O)CC(O)C(O)C(=O)O)C(O)(O)CC(O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.006']
+    net feasibility: 0.000
+    reaction rules: ['rule0051_12', 'rule0126_2']
+  Pathway #28:
+    CC(O)C(O)C(=O)O + OO = CC(O)C(O)C=O + O + O=O
+    CC(O)C(O)C=O + CC(O)C(O)C=O = O=CCC(O)C(O)C=O + CC(O)CO
+    reaction feasibilities: ['0.004', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0147_2', 'rule0126_2']
+  Pathway #16:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(=O)C(=O)O + CC(O)C(O)C(O)O
+    CC(O)C(O)C(O)O + CC(O)C(O)C(O)O = CC(O)C(O)C(O)(O)C(O)O + CC(O)CO
+    reaction feasibilities: ['0.005', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0324_1', 'rule0126_2']
+  Pathway #18:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(=O)C(=O)O + CC(O)C(O)C(O)O
+    CC(O)C(O)C(O)O + CC(O)C(O)C(O)O = CC(O)CO + CC(O)(C(O)O)C(O)C(O)O
+    reaction feasibilities: ['0.005', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0324_1', 'rule0126_2']
+  Pathway #34:
+    CC(O)C(O)C(=O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O = CC(O)C(O)C=O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + O=O
+    CC(O)C(O)C=O + O = O=CO + CC(O)CO
+    reaction feasibilities: ['0.000', '0.682']
+    net feasibility: 0.000
+    reaction rules: ['rule0005_60', 'rule0085_2']
+  Pathway #70:
+    CC(O)C(O)C(=O)O + OO + N = CC(O)C(O)C(N)O + O + O=O
+    CC(O)C(O)C(N)O + CC(O)C(O)C(N)O = NC(O)CC(O)C(O)C(N)O + CC(O)CO
+    reaction feasibilities: ['0.003', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0091_12', 'rule0126_2']
+  Pathway #88:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O
+    CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O + CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O = CC(O)C(O)(C(O)(O)CC(O)C(O)C(=O)O)C(O)(O)CC(O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.005']
+    net feasibility: 0.000
+    reaction rules: ['rule0051_12', 'rule0126_2']
+  Pathway #37:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(=O)OC(C)C(O)C(=O)O + O
+    CC(O)C(O)C(=O)OC(C)C(O)C(=O)O + CC(O)C(O)C(=O)OC(C)C(O)C(=O)O = CC(OC(=O)C(O)(C(=O)OC(C)C(O)C(=O)O)C(C)O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.005']
+    net feasibility: 0.000
+    reaction rules: ['rule0001_87;rule0006_162', 'rule0126_2']
+  Pathway #111:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CCO + CC(O)(C(O)C(=O)O)C(O)C(=O)O
+    CCO + CCO = C + CC(O)CO
+    reaction feasibilities: ['0.001', '0.004']
+    net feasibility: 0.000
+    reaction rules: ['rule0126_1', 'rule0126_2']
+  Pathway #38:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(=O)OC(C)C(O)C(=O)O + O
+    CC(O)C(O)C(=O)OC(C)C(O)C(=O)O + CC(O)C(O)C(=O)OC(C)C(O)C(=O)O = CC(OC(=O)CC(O)C(O)C(=O)OC(C)C(O)C(=O)O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.005']
+    net feasibility: 0.000
+    reaction rules: ['rule0001_87;rule0006_162', 'rule0126_2']
+  Pathway #116:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = O=CO + CC(O)C(O)CC(O)C(O)C(=O)O
+    CC(O)C(O)CC(O)C(O)C(=O)O + CC(O)C(O)CC(O)C(O)C(=O)O = O=C(O)C(O)C(O)CCC(O)C(O)CC(O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.004']
+    net feasibility: 0.000
+    reaction rules: ['rule0126_2', 'rule0126_2']
+  Pathway #20:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(=O)C(=O)O + CC(O)C(O)C(O)O
+    CC(O)C(O)C(O)O + CC(O)C(O)C(O)O = CC(O)CO + OC(O)CC(O)C(O)C(O)O
+    reaction feasibilities: ['0.005', '0.001']
+    net feasibility: 0.000
+    reaction rules: ['rule0324_1', 'rule0126_2']
+  Pathway #136:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)C(O)C(C)O + O=C=O
+    CC(O)C(O)C(O)(O)C(O)C(C)O + CC(O)C(O)C(O)(O)C(O)C(C)O = CC(O)CO + CC(O)C(O)C(O)(O)C(O)C(C)(O)C(O)(O)C(O)C(C)O
+    reaction feasibilities: ['0.007', '0.001']
+    net feasibility: 0.000
+    reaction rules: ['rule0273_4', 'rule0126_2']
+  Pathway #120:
+    CC(O)C(O)C(=O)O + CC(=O)SCCNC(=O)CCNC(=O)C(O)C(C)(C)COP(=O)(O)OP(=O)(O)OCC1OC(n2cnc3c(N)ncnc32)C(O)C1OP(=O)(O)O = CC(=O)SC(=O)C(O)C(C)O + CC(C)(COP(=O)(O)OP(=O)(O)OCC1OC(n2cnc3c(N)ncnc32)C(O)C1OP(=O)(O)O)C(O)C(=O)NCCC(=O)NCCO
+    CC(=O)SC(=O)C(O)C(C)O + O = CC(O)CO + CC(=O)SC(=O)O
+    reaction feasibilities: ['0.000', '0.044']
+    net feasibility: 0.000
+    reaction rules: ['rule0152_2', 'rule0085_2']
+  Pathway #92:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O
+    CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O + CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O = O=C(O)C(O)C(O)CC(O)(O)CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.003']
+    net feasibility: 0.000
+    reaction rules: ['rule0051_12', 'rule0126_2']
+  Pathway #94:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O
+    CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O + CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)CC(O)(C(O)C(=O)O)C(O)(O)CC(O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0051_12', 'rule0126_1']
+  Pathway #143:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)O
+    CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)O + CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)O = CC(O)CO + CC(O)C(O)C1(O)OC(O)(O)C1(O)C(O)CC1(O)OC(O)(O)C1(O)C(C)O
+    reaction feasibilities: ['0.002', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0353_2', 'rule0126_2']
+  Pathway #109:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CCO + CC(O)C(O)(C(=O)O)C(O)C(=O)O
+    CCO + CCO = C + CC(O)CO
+    reaction feasibilities: ['0.001', '0.004']
+    net feasibility: 0.000
+    reaction rules: ['rule0126_2', 'rule0126_2']
+  Pathway #144:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)O
+    CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)O + CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)O = CC(O)CO + CC(O)C1(O)C(O)(O)OC1(O)C(O)(C(C)O)C1(O)OC(O)(O)C1(O)C(C)O
+    reaction feasibilities: ['0.002', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0353_2', 'rule0126_2']
+  Pathway #42:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(=O)OC(C)C(O)C(=O)O + O
+    CC(O)C(O)C(=O)OC(C)C(O)C(=O)O + CC(O)C(O)C(=O)OC(C)C(O)C(=O)O = CC(O)CO + CC(O)C(O)C(=O)OC(CC(=O)OC(C)C(O)C(=O)O)C(O)C(=O)O
+    reaction feasibilities: ['0.001', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0001_87;rule0006_162', 'rule0126_2']
+  Pathway #112:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = O=CO + CC(O)C(O)CC(O)C(O)C(=O)O
+    CC(O)C(O)CC(O)C(O)C(=O)O + CC(O)C(O)CC(O)C(O)C(=O)O = CC(O)C(O)C(CC(O)C(O)C(=O)O)C(O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0126_2', 'rule0126_2']
+  Pathway #36:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(=O)OC(C)C(O)C(=O)O + O
+    CC(O)C(O)C(=O)OC(C)C(O)C(=O)O + CC(O)C(O)C(=O)OC(C)C(O)C(=O)O = CC(O)CO + CC(OC(=O)C(O)C(C)(O)C(=O)OC(C)C(O)C(=O)O)C(O)C(=O)O
+    reaction feasibilities: ['0.001', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0001_87;rule0006_162', 'rule0126_1']
+  Pathway #140:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)O
+    CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)O + CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)O = CC(O)C1(O)C(O)(O)OC1(O)CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)O + CC(O)CO
+    reaction feasibilities: ['0.002', '0.001']
+    net feasibility: 0.000
+    reaction rules: ['rule0353_2', 'rule0126_2']
+  Pathway #47:
+    CC(O)C(O)C(=O)O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)OC3OC(CO)C(O)C(O)C3O)C(O)C2O)c(=O)[nH]1 = CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + O=c1ccn(C2OC(COP(=O)(O)OP(=O)(O)O)C(O)C2O)c(=O)[nH]1
+    CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O + CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O = CC(O)C(O)C(=O)O[C@H]1O[C@H](CO)[C@@](O)(C(=O)O[C@H]2O[C@H](CO)[C@@H](O)[C@H](O)[C@H]2O)[C@H](O)[C@H]1O + CC(O)CO
+    reaction feasibilities: ['0.947', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0009_39', 'rule0126_2']
+  Pathway #4:
+    CC(O)C(O)C(=O)O + OO = CC(O)C(O)C(O)O + O=O
+    CC(O)C(O)C(O)O + CC(O)C(O)C(O)O = CC(O)C(O)(C(O)O)C(O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0078_14', 'rule0126_2']
+  Pathway #40:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(=O)OC(C)C(O)C(=O)O + O
+    CC(O)C(O)C(=O)OC(C)C(O)C(=O)O + CC(O)C(O)C(=O)OC(C)C(O)C(=O)O = CC(O)C(O)C(=O)OC(C)C(O)(C(=O)O)C(=O)OC(C)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.001']
+    net feasibility: 0.000
+    reaction rules: ['rule0001_87;rule0006_162', 'rule0126_2']
+  Pathway #142:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)O
+    CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)O + CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)O = CC(O)CO + CC(O)C1(O)C(O)(O)OC1(O)C(O)C(C)(O)C1(O)OC(O)(O)C1(O)C(C)O
+    reaction feasibilities: ['0.002', '0.001']
+    net feasibility: 0.000
+    reaction rules: ['rule0353_2', 'rule0126_2']
+  Pathway #14:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(=O)C(O)C(=O)O + CC(O)C(O)C(O)O
+    CC(O)C(O)C(O)O + CC(O)C(O)C(O)O = CC(O)C(O)(C(O)O)C(O)O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0324_1', 'rule0126_2']
+  Pathway #141:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)O
+    CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)O + CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)O = CC(O)C(O)C1(O)OC(O)(O)C1(O)C(C)(O)C1(O)OC(O)(O)C1(O)C(C)O + CC(O)CO
+    reaction feasibilities: ['0.002', '0.001']
+    net feasibility: 0.000
+    reaction rules: ['rule0353_2', 'rule0126_2']
+  Pathway #1:
+    CC(O)C(O)C(=O)O + OO = CC(O)C(O)C(O)O + O=O
+    CC(O)C(O)C(O)O + CC(O)C(O)C(O)O = CC(O)C(O)C(O)(O)C(O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0078_14', 'rule0126_2']
+  Pathway #3:
+    CC(O)C(O)C(=O)O + OO = CC(O)C(O)C(O)O + O=O
+    CC(O)C(O)C(O)O + CC(O)C(O)C(O)O = CC(O)CO + CC(O)(C(O)O)C(O)C(O)O
+    reaction feasibilities: ['0.001', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0078_14', 'rule0126_2']
+  Pathway #115:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = O=CO + CC(O)C(O)CC(O)C(O)C(=O)O
+    CC(O)C(O)CC(O)C(O)C(=O)O + CC(O)C(O)CC(O)C(O)C(=O)O = CC(O)C(O)(CC(O)C(O)C(=O)O)CC(O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.001']
+    net feasibility: 0.000
+    reaction rules: ['rule0126_2', 'rule0126_2']
+  Pathway #11:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(=O)C(O)C(=O)O + CC(O)C(O)C(O)O
+    CC(O)C(O)C(O)O + CC(O)C(O)C(O)O = CC(O)C(O)C(O)(O)C(O)O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0324_1', 'rule0126_2']
+  Pathway #13:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(=O)C(O)C(=O)O + CC(O)C(O)C(O)O
+    CC(O)C(O)C(O)O + CC(O)C(O)C(O)O = CC(O)CO + CC(O)(C(O)O)C(O)C(O)O
+    reaction feasibilities: ['0.000', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0324_1', 'rule0126_2']
+  Pathway #117:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = O=CO + CC(O)C(O)CC(O)C(O)C(=O)O
+    CC(O)C(O)CC(O)C(O)C(=O)O + CC(O)C(O)CC(O)C(O)C(=O)O = CC(O)(CC(O)C(O)C(=O)O)C(O)CC(O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0126_2', 'rule0126_2']
+  Pathway #41:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(=O)OC(C)C(O)C(=O)O + O
+    CC(O)C(O)C(=O)OC(C)C(O)C(=O)O + CC(O)C(O)C(=O)OC(C)C(O)C(=O)O = CC(O)C(O)C(=O)OC(C)(C(=O)OC(C)C(O)C(=O)O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0001_87;rule0006_162', 'rule0126_1']
+  Pathway #5:
+    CC(O)C(O)C(=O)O + OO = CC(O)C(O)C(O)O + O=O
+    CC(O)C(O)C(O)O + CC(O)C(O)C(O)O = CC(O)CO + OC(O)CC(O)C(O)C(O)O
+    reaction feasibilities: ['0.001', '0.001']
+    net feasibility: 0.000
+    reaction rules: ['rule0078_14', 'rule0126_2']
+  Pathway #15:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(=O)C(O)C(=O)O + CC(O)C(O)C(O)O
+    CC(O)C(O)C(O)O + CC(O)C(O)C(O)O = CC(O)CO + OC(O)CC(O)C(O)C(O)O
+    reaction feasibilities: ['0.000', '0.001']
+    net feasibility: 0.000
+    reaction rules: ['rule0324_1', 'rule0126_2']
+  Pathway #95:
+    CC(O)C(O)C(=O)O + O=C=O = O=C(O)C(=O)O + CC(O)C=O
+    CC(O)C=O + OO = CC(O)CO + O=O
+    reaction feasibilities: ['0.001', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0274_3', 'rule0078_14']
+  Pathway #114:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = O=CO + CC(O)C(O)CC(O)C(O)C(=O)O
+    CC(O)C(O)CC(O)C(O)C(=O)O + CC(O)C(O)CC(O)C(O)C(=O)O = CC(O)CO + CC(O)C(O)CC(O)C(O)(CC(O)C(O)C(=O)O)C(=O)O
+    reaction feasibilities: ['0.001', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0126_2', 'rule0126_2']
+  Pathway #87:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)O
+    CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)O + CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)O = CC(O)CO + CC(O)C(O)(C(=O)O)C(O)(O)C(O)(C(C)O)C(O)(O)C(O)(C(=O)O)C(C)O
+    reaction feasibilities: ['0.000', '0.001']
+    net feasibility: 0.000
+    reaction rules: ['rule0051_08', 'rule0126_2']
+  Pathway #90:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O
+    CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O + CC(O)C(O)C(O)(O)CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)CC(O)C(O)(C(=O)O)C(O)(O)CC(O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0051_12', 'rule0126_2']
+  Pathway #84:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)O
+    CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)O + CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)O = CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(O)CC(O)(O)C(O)(C(=O)O)C(C)O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0051_08', 'rule0126_2']
+  Pathway #113:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = O=CO + CC(O)C(O)CC(O)C(O)C(=O)O
+    CC(O)C(O)CC(O)C(O)C(=O)O + CC(O)C(O)CC(O)C(O)C(=O)O = CC(O)C(O)CC(O)(CC(O)C(O)C(=O)O)C(O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.001', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0126_2', 'rule0126_1']
+  Pathway #86:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)O
+    CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)O + CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)O = CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)(O)C(O)(O)C(O)(C(=O)O)C(C)O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0051_08', 'rule0126_1']
+  Pathway #31:
+    CC(O)C(O)C(=O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O = CC(O)C(O)C=O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + O=O
+    CC(O)C(O)C=O + CC(O)C(O)C=O = CC(O)CO + CC(O)C(O)(C=O)C=O
+    reaction feasibilities: ['0.000', '0.003']
+    net feasibility: 0.000
+    reaction rules: ['rule0005_60', 'rule0126_2']
+  Pathway #85:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)O
+    CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)O + CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)O = CC(O)C(O)(C(=O)O)C(O)(O)C(O)C(C)(O)C(O)(O)C(O)(C(=O)O)C(C)O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0051_08', 'rule0126_2']
+  Pathway #83:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O = CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)O
+    CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)O + CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)O = CC(O)C(O)(C(=O)O)C(O)(O)CC(O)C(O)C(O)(O)C(O)(C(=O)O)C(C)O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0051_08', 'rule0126_2']
+  Pathway #35:
+    CC(O)C(O)C(=O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O = CC(O)C(O)C=O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + O=O
+    CC(O)C(O)C=O + CC(O)C(O)C=O = CC(O)(C=O)C(O)C=O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.003']
+    net feasibility: 0.000
+    reaction rules: ['rule0005_60', 'rule0126_2']
+  Pathway #118:
+    CC(O)C(O)C(=O)O + CC(=O)SCCNC(=O)CCNC(=O)C(O)C(C)(C)COP(=O)(O)OP(=O)(O)OCC1OC(n2cnc3c(N)ncnc32)C(O)C1OP(=O)(O)O = CC(=O)SC(=O)C(O)C(C)O + CC(C)(COP(=O)(O)OP(=O)(O)OCC1OC(n2cnc3c(N)ncnc32)C(O)C1OP(=O)(O)O)C(O)C(=O)NCCC(=O)NCCO
+    CC(=O)SC(=O)C(O)C(C)O + CC(=O)SC(=O)C(O)C(C)O = CC(=O)SC(=O)CC(O)C(O)C(=O)SC(C)=O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0152_2', 'rule0126_2']
+  Pathway #32:
+    CC(O)C(O)C(=O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O = CC(O)C(O)C=O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + O=O
+    CC(O)C(O)C=O + CC(O)C(O)C=O = CC(O)CO + CC(O)C(O)C(=O)C=O
+    reaction feasibilities: ['0.000', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0005_60', 'rule0126_2']
+  Pathway #33:
+    CC(O)C(O)C(=O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O = CC(O)C(O)C=O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + O=O
+    CC(O)C(O)C=O + CC(O)C(O)C=O = O=CCC(O)C(O)C=O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.002']
+    net feasibility: 0.000
+    reaction rules: ['rule0005_60', 'rule0126_2']
+  Pathway #152:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O = CC(O)C(OC(O)C(O)C(C)O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + O=O
+    CC(O)C(OC(O)C(O)C(C)O)C(=O)O = CC(O)C(OC=O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.005']
+    net feasibility: 0.000
+    reaction rules: ['rule0490_1', 'rule0053_20']
+  Pathway #119:
+    CC(O)C(O)C(=O)O + CC(=O)SCCNC(=O)CCNC(=O)C(O)C(C)(C)COP(=O)(O)OP(=O)(O)OCC1OC(n2cnc3c(N)ncnc32)C(O)C1OP(=O)(O)O = CC(=O)SC(=O)C(O)C(C)O + CC(C)(COP(=O)(O)OP(=O)(O)OCC1OC(n2cnc3c(N)ncnc32)C(O)C1OP(=O)(O)O)C(O)C(=O)NCCC(=O)NCCO
+    CC(=O)SC(=O)C(O)C(C)O + CC(=O)SC(=O)C(O)C(C)O = CC(=O)SC(=O)C(O)C(C)(O)C(=O)SC(C)=O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0152_2', 'rule0126_2']
+  Pathway #121:
+    CC(O)C(O)C(=O)O + CC(=O)SCCNC(=O)CCNC(=O)C(O)C(C)(C)COP(=O)(O)OP(=O)(O)OCC1OC(n2cnc3c(N)ncnc32)C(O)C1OP(=O)(O)O = CC(=O)SC(=O)C(O)C(C)O + CC(C)(COP(=O)(O)OP(=O)(O)OCC1OC(n2cnc3c(N)ncnc32)C(O)C1OP(=O)(O)O)C(O)C(=O)NCCC(=O)NCCO
+    CC(=O)SC(=O)C(O)C(C)O + CC(=O)SC(=O)C(O)C(C)O = CC(O)CO + CC(=O)SC(=O)C(O)(C(=O)SC(C)=O)C(C)O
+    reaction feasibilities: ['0.000', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0152_2', 'rule0126_2']
+  Pathway #155:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O = CC(O)C(OC(O)C(O)C(C)O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + O=O
+    CC(O)C(OC(O)C(O)C(C)O)C(=O)O + CC(O)C(OC(O)C(O)C(C)O)C(=O)O = CC(O)C(OC(O)C(C)(O)C(OC(O)C(O)C(C)O)C(=O)O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.001']
+    net feasibility: 0.000
+    reaction rules: ['rule0490_1', 'rule0126_1']
+  Pathway #149:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O = CC(O)C(OC(O)C(O)C(C)O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + O=O
+    CC(O)C(OC(O)C(O)C(C)O)C(=O)O + CC(O)C(OC(O)C(O)C(C)O)C(=O)O = CC(O)C(OC(O)C(OC(O)C(O)C(C)O)(C(=O)O)C(C)O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0490_1', 'rule0126_2']
+  Pathway #151:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O = CC(O)C(OC(O)C(O)C(C)O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + O=O
+    CC(O)C(OC(O)C(O)C(C)O)C(=O)O + CC(O)C(OC(O)C(O)C(C)O)C(=O)O = CC(O)C(OC(O)C(O)C(C)(O)C(O)OC(C(=O)O)C(C)O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0490_1', 'rule0126_2']
+  Pathway #156:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O = CC(O)C(OC(O)C(O)C(C)O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + O=O
+    CC(O)C(OC(O)C(O)C(C)O)C(=O)O + CC(O)C(OC(O)C(O)C(C)O)C(=O)O = CC(O)C(OC(O)C(O)(OC(C(=O)O)C(C)O)C(O)C(C)O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0490_1', 'rule0126_2']
+  Pathway #122:
+    CC(O)C(O)C(=O)O + CC(=O)SCCNC(=O)CCNC(=O)C(O)C(C)(C)COP(=O)(O)OP(=O)(O)OCC1OC(n2cnc3c(N)ncnc32)C(O)C1OP(=O)(O)O = CC(=O)SC(=O)C(O)C(C)O + CC(C)(COP(=O)(O)OP(=O)(O)OCC1OC(n2cnc3c(N)ncnc32)C(O)C1OP(=O)(O)O)C(O)C(=O)NCCC(=O)NCCO
+    CC(=O)SC(=O)C(O)C(C)O + CC(=O)SC(=O)C(O)C(C)O = CC(O)CO + CC(=O)SC(=O)CC(=O)SC(=O)C(O)C(C)O
+    reaction feasibilities: ['0.000', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0152_2', 'rule0126_2']
+  Pathway #153:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O = CC(O)C(OC(O)C(O)C(C)O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + O=O
+    CC(O)C(OC(O)C(O)C(C)O)C(=O)O + CC(O)C(OC(O)C(O)C(C)O)C(=O)O = CC(O)C(OC(O)CC(O)C(OC(O)C(O)C(C)O)C(=O)O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0490_1', 'rule0126_2']
+  Pathway #150:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O = CC(O)C(OC(O)C(O)C(C)O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + O=O
+    CC(O)C(OC(O)C(O)C(C)O)C(=O)O + CC(O)C(OC(O)C(O)C(C)O)C(=O)O = CC(O)CO + CC(O)C(OC(O)C(O)(C(C)O)C(O)OC(C(=O)O)C(C)O)C(=O)O
+    reaction feasibilities: ['0.000', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0490_1', 'rule0126_2']
+  Pathway #154:
+    CC(O)C(O)C(=O)O + CC(O)C(O)C(=O)O + NC(=O)c1ccc[n+](C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)c1 + O = CC(O)C(OC(O)C(O)C(C)O)C(=O)O + NC(=O)C1=CN(C2OC(COP(=O)(O)OP(=O)(O)OCC3OC(n4cnc5c(N)ncnc54)C(OP(=O)(O)O)C3O)C(O)C2O)C=CC1 + O=O
+    CC(O)C(OC(O)C(O)C(C)O)C(=O)O + CC(O)C(OC(O)C(O)C(C)O)C(=O)O = CC(O)C(OC(O)CC(O)C(O)C(O)OC(C(=O)O)C(C)O)C(=O)O + CC(O)CO
+    reaction feasibilities: ['0.000', '0.000']
+    net feasibility: 0.000
+    reaction rules: ['rule0490_1', 'rule0126_2']

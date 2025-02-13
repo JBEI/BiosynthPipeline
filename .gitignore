@@ -49,3 +49,5 @@ node_modules
 
 # ignore all DORAnet network type files
 ./data/DORAnet_network_files
+*.pgnet
+*.pdf

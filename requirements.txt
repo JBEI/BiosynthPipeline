@@ -16,6 +16,7 @@ pytest==7.1.2
 rdkit
 scikit-learn
 scipy==1.14.0
+seaborn
 selfies==2.1.1
 setuptools
 streamlit
