@@ -34,8 +34,6 @@ settings/*
 typescript/modules/**/*.d.ts
 typescript/src/**/*.d.ts
 
-data/result_logs/*
-
 # ignore filepath to local equilibrator sqllite compounds database
 equilibrator_filepath.txt
 
@@ -48,6 +46,6 @@ bower_components
 node_modules
 
 # ignore all DORAnet network type files
-./data/DORAnet_network_files
+/data/DORAnet_network_files/*
 *.pgnet
 *.pdf
